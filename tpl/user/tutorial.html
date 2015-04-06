@@ -1,0 +1,37 @@
+<style type="text/css">
+  .marketing p{
+    margin-bottom: 10px;
+  }
+  .marketing img{
+    width: 80%;
+    margin-bottom: 20px;
+  }
+</style>
+<div class="row marketing">
+  <h3>Mac电脑VPN设置（以L2TP VPN为例，PPTP VPN类似）</h3>
+  <p>1、打开“系统偏好设置”，找到“网络”，打开；</p>
+  <p><img src="/res/img/mac_vpn/1.png"></p>
+  <p>2、点击左下角的加号；</p>
+  <p><img src="/res/img/mac_vpn/2.png"></p>
+  <p>3、“接口”选择“VPN”，“VPN类型”选择“IPSec上的L2TP”，“服务名称”可以自定义，点击“创建”。注意：在建立PPTP VPN的时候，在“VPN类型”处选择“PPTP”即可；</p>
+  <p><img src="/res/img/mac_vpn/3.png"></p>
+  <p>4、参照 <code><a href="<?php echo spUrl('user','index');?>">该页面</a></code>的配置信息，填写“服务器地址”，“账户名称”(即VPN登录名称)，为了方便以后操作，可以勾选“在菜单栏中显示VPN状态”；</p>
+  <p><img src="/res/img/mac_vpn/4.png"></p>
+  <p>5、点击“鉴定设置”，在“密码”和“共享的密钥”中分别填写你的VPN登录密码和L2TP 密钥(IPSEC)，填完后点击“好”。注意：在设置PPTP VPN的时候，只需要设置密码即可；</p>
+  <p><img src="/res/img/mac_vpn/5.png"></p>
+  <p>6、再点击“高级”，勾选“通过VPN连接发送所有流量”，点击“好”；</p>
+  <p><img src="/res/img/mac_vpn/6.png"></p>
+  <p>7、点击“应用”即可生效，然后点击“连接”就可以连接到VPN网络啦</p>
+  <p><img src="/res/img/mac_vpn/7.png"></p>
+
+  <hr>
+  <h3>iOS中VPN的配置</h3>
+  <p>1、找到“设置”中的“通用”项</p>
+  <p><img src="/res/img/ios_vpn/1.png"></p>
+  <p>2、划到最底部，找到“VPN”</p>
+  <p><img src="/res/img/ios_vpn/2.png"></p>
+  <p>3、点击“添加VPN配置”</p>
+  <p><img src="/res/img/ios_vpn/3.png"></p>
+  <p>4、选择L2TP类型，其余信息参照<code><a href="<?php echo spUrl('user','index');?>">该页面</a></code>进行配置（PPTP的类似）。</p>
+  <p><img src="/res/img/ios_vpn/4.png"></p>
+</div>

@@ -1,0 +1,44 @@
+<div class="jumbotron">
+  <p>请注册前，先进行多次下载测速，</p>
+  <p>
+    <a href="http://speedtest-sgp1.digitalocean.com/100mb.test" target="_blank">点击这里开始下载</a>
+  </p>
+  <p>请观察您的下载速度是否满意。</p>
+  <p style="color:red;font-weight:bolder;">注意：您注册并购买了服务，就默认满意当前服务器的速度。</p>
+  <p style="font-size:9px;margin-bottom:0;">备注：4M宽带的理论最高下载速度是512K/s</p>
+</div>
+
+<div class="row marketing">
+  <div class="col-lg-8 col-md-offset-2">
+    <form action="<?php echo spUrl('main','regSave');?>" method="post">
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input type="text" class="form-control" name="username" id="username">
+      </div>
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" class="form-control" name="password" id="password">
+      </div>
+      <div class="form-group">
+        <label for="repassword">再输入一遍密码</label>
+        <input type="password" class="form-control" name="repassword" id="repassword">
+      </div>
+      <div class="form-group">
+        <label for="email">邮箱地址</label>
+        <input type="text" class="form-control" name="email" id="email">
+        <p class="help-block">请正确填写您的邮箱地址，邮箱将用来接收重要通知</p>
+      </div>
+      <div class="form-group">
+        <label for="vpnname">VPN登录名</label>
+        <input type="text" class="form-control" name="vpnname" id="vpnname">
+        <p class="help-block">设置您的VPN登陆用户名（设置后不可修改）</p>
+      </div>
+      <div class="form-group">
+        <label for="vpnpass">VPN登录密码</label>
+        <input type="text" class="form-control" name="vpnpass" id="vpnpass">
+        <p class="help-block">设置您的VPN登陆密码（设置后不可修改）</p>
+      </div>
+      <button type="submit" class="btn btn-default">提交注册</button>
+    </form>
+  </div>
+</div>

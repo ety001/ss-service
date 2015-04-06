@@ -1,0 +1,99 @@
+<div class="row marketing">
+  <div class="col-lg-8 col-md-offset-2">
+    <table class="table table-bordered">
+      <tr class="success">
+        <td>用户类型</td>
+        <td>
+          <?php switch ($user_info['user_type']) {
+            case 0:
+              echo '普通用户';
+              break;
+            case 1:
+              echo 'VIP';
+              break;
+          }?>
+        </td>
+      <tr class="success">
+        <td>用户状态</td>
+        <td>
+          <?php switch ($user_info['status']) {
+            case 0:
+              echo '未开通&nbsp;&nbsp;--》<a href="'.spUrl('user', 'order').'">去开通</a>';
+              break;
+            case 1:
+              echo '已开通';
+              break;
+          }?>
+        </td>
+      </tr>
+      <tr class="success">
+        <td>服务开始时间</td>
+        <td>
+          <?php 
+          if($user_info['start_time']){
+            echo date('Y-m-d H:i:s', $user_info['start_time']);
+          } else {
+            echo '--';
+          }
+          ?>
+        </td>
+      </tr>
+      <tr class="success">
+        <td>服务到期时间</td>
+        <td>
+          <?php 
+          if($user_info['end_time']){
+            echo date('Y-m-d H:i:s', $user_info['end_time']);
+          } else {
+            echo '--';
+          }
+          ?>
+        </td>
+      </tr>
+      <tr class="info">
+        <td>PPTP VPN 服务器地址</td>
+        <td><code>gfw1.ohshit.cc</code></td>
+      </tr>
+      <tr class="info">
+        <td>PPTP VPN 登录名</td>
+        <td><code><?php echo $user_info['vpnname'];?></code></td>
+      </tr>
+      <tr class="info">
+        <td>PPTP VPN 登录密码</td>
+        <td><code><?php echo $user_info['vpnpass'];?></code></td>
+      </tr>
+      <tr class="active">
+        <td>L2TP VPN 服务器地址</td>
+        <td><code>gfw1.ohshit.cc</code></td>
+      </tr>
+      <tr class="active">
+        <td>L2TP VPN 登录名</td>
+        <td><code><?php echo $user_info['vpnname'];?></code></td>
+      </tr>
+      <tr class="active">
+        <td>L2TP VPN 登录密码</td>
+        <td><code><?php echo $user_info['vpnpass'];?></code></td>
+      </tr>
+      <tr class="active">
+        <td>L2TP 密钥(IPSEC)</td>
+        <td><code>gfwohshitcc</code></td>
+      </tr>
+      <tr class="warning">
+        <td>Shadowsocks 服务器地址</td>
+        <td><code>gfw1.ohshit.cc</code></td>
+      </tr>
+      <tr class="warning">
+        <td>Shadowsocks 服务器端口</td>
+        <td><code><?php echo ($user_info['port'])?$user_info['port']:'--';?></code></td>
+      </tr>
+      <tr class="warning">
+        <td>Shadowsocks 服务器密码</td>
+        <td><code><?php echo $user_info['vpnpass'];?></code></td>
+      </tr>
+      <tr class="warning">
+        <td>Shadowsocks 服务器加密方式</td>
+        <td><code>aes-256-cfb</code></td>
+      </tr>
+    </table>
+  </div>
+</div>

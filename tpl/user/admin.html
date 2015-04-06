@@ -1,0 +1,105 @@
+<div class="row marketing">
+  <?php if($user_info){?>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>username</th>
+      <th>email</th>
+      <th>vpnname</th>
+      <th>vpnpass</th>
+      <th>start_time</th>
+      <th>end_time</th>
+      <th>user_type</th>
+      <th>status</th>
+      <th>端口</th>
+      <th>操作</th>
+    </thead>
+    <?php foreach ($user_info as $k => $v) {?>
+    <tr>
+      <td><?php echo $v['username'];?></td>
+      <td><?php echo $v['email'];?></td>
+      <td><?php echo $v['vpnname'];?></td>
+      <td><?php echo $v['vpnpass'];?></td>
+      <td><?php echo $v['start_time']?date('Y-m-d H:i:s', $v['start_time']):'--';?></td>
+      <td><?php echo $v['end_time']?date('Y-m-d H:i:s', $v['end_time']):'--';?></td>
+      <td>
+        <?php switch ($v['user_type']) {
+          case 0:
+            echo '普通用户';
+            break;
+          case 1:
+            echo 'VIP';
+            break;
+        }?>
+      </td>
+      <td>
+        <?php switch ($v['status']) {
+          case 0:
+            echo '<span class="label label-warning">未审核</span>';
+            break;
+          case 1:
+            echo '<span class="label label-success">审核成功</span>';
+            break;
+        }?>
+      </td>
+      <td>
+        <input id="port_<?php echo $v['userid'];?>" value="<?php echo $v['port'];?>"><button onclick="p('<?php echo $v['userid'];?>');">save</button>
+      </td>
+      <td>
+        <?php if($v['user_type']!=1){?>
+        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['userid'],'vip'=>$v['user_type']));?>">VIP</a>
+        <?php } else {?>
+        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['userid'],'vip'=>$v['user_type']));?>">取消VIP</a>
+        <?php }?>
+        <br>
+        <?php if($v['status']!=1){?>
+        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','chgstatus',array('user_id'=>$v['userid'],'status'=>$v['status']));?>">开通</a>
+        <?php }else{?>
+        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('user','chgstatus',array('user_id'=>$v['userid'],'status'=>$v['status']));?>">取消开通</a>
+        <?php }?>
+        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','addoneyear',array('user_id'=>$v['userid']));?>">续费一年</a>
+      </td>
+    </tr>
+    <?php }?>
+  </table>
+  <?php }?>
+  <?php if($order_info){?>
+  <hr>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>订单号</th>
+      <th>username</th>
+      <th>状态</th>
+      <th>操作</th>
+    </thead>
+    <?php foreach ($order_info as $k => $v) {?>
+    <tr>
+      <td><?php echo $v['order_id'];?></td>
+      <td><?php echo $v['user_info']['username'];?></td>
+      <td>
+        <?php switch ($v['status']) {
+          case 0:
+            echo '审核中';
+            break;
+          case 1:
+            echo '审核成功';
+            break;
+        }?>
+      </td>
+      <td>
+        <?php if($v['status']==0){?>
+        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','verifyorder',array('id'=>$v['id']));?>">审核</a>
+        <?php }?>
+      </td>
+    </tr>
+    <?php }?>
+  </table>
+  <?php }?>
+</div>
+<script type="text/javascript">
+function p(u){
+  var port = $('#port_'+u).val();
+  $.post('<?php echo spUrl("user","port");?>', {p:port,u:u},function(){
+    location.href="<?php echo spUrl('user','admin');?>";
+  });
+}
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title><?php echo $page['title'];?> -- GFW</title>
+    <link rel="icon" href="/res/img/favicon.png" />
+    <meta name="keywords" content="<?php echo $page['keywords'];?>">
+    <meta name="description" content="<?php echo $page['keywords'];?>">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="res/js/jquery.tmpl.min.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="res/js/vendor/html5shiv.js"></script>
+      <script src="res/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <?php if($head_js){
+      foreach($head_js as $k=>$v){ ?>
+      <script src="<?php echo $v;?>"></script>
+    <?php }
+    }?>
+    <?php if($head_css){
+      foreach($head_css as $k=>$v){ ?>
+    <link href="<?php echo $v;?>" rel="stylesheet" media="screen">
+    <?php }
+    }?>
+    <script src="res/js/global.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <?php if($_SESSION['user']){?>
+            <li role="presentation" <?php if($page['tag']=='index'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'index');?>">管理</a></li>
+            <li role="presentation" <?php if($page['tag']=='order'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'order');?>">购买</a></li>
+            <li role="presentation" <?php if($page['tag']=='tutorial'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'tutorial');?>">教程</a></li>
+            <li role="presentation"><a href="<?php echo spUrl('main', 'logout');?>">退出</a></li>
+            <?php } else {?>
+            <li role="presentation" <?php if($page['tag']=='index'){?>class="active"<?php }?> ><a href="<?php echo spUrl('main', 'index');?>">首页</a></li>
+            <li role="presentation" <?php if($page['tag']=='login'){?>class="active"<?php }?> ><a href="<?php echo spUrl('main', 'login');?>">登录</a></li>
+            <li role="presentation" <?php if($page['tag']=='reg'){?>class="active"<?php }?> ><a href="<?php echo spUrl('main', 'reg');?>">注册</a></li>
+            <?php }?>
+          </ul>
+        </nav>
+        <h3 class="text-muted"><a href="<?php echo spUrl('main', 'index');?>">私人定制</a></h3>
+      </div>
