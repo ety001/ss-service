@@ -40,7 +40,8 @@ $spConfig = array(
     ),
     'include_path' => array(
         APP_PATH.'/inc',
-        APP_PATH.'/inc/phpmailer'
+        APP_PATH.'/inc/phpmailer',
+        APP_PATH.'/inc/top'
     ),
     'siteconfig' => array(
     )
