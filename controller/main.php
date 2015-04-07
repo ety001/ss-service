@@ -2,6 +2,9 @@
 class main extends spController
 {
 	public function index(){
+        if(checkHasLogin()){
+            $this->jump(spUrl('user','index'));
+        }
         $page               = array(
             'title'     => 'SS',
             'tag'       => 'index'
@@ -12,6 +15,9 @@ class main extends spController
     }
 
     public function reg(){
+        if(checkHasLogin()){
+            $this->jump(spUrl('user','index'));
+        }
         $page               = array(
             'title'     => 'SS',
             'tag'       => 'reg'
@@ -22,6 +28,9 @@ class main extends spController
     }
 
     public function login(){
+        if(checkHasLogin()){
+            $this->jump(spUrl('user','index'));
+        }
         $page               = array(
             'title'     => '登录',
             'tag'       => 'login'
@@ -37,6 +46,9 @@ class main extends spController
     }
 
     public function regSave(){
+        if(checkHasLogin()){
+            $this->jump(spUrl('user','index'));
+        }
         $post_data          = $this->spArgs(null, false, 'post');
         unset($post_data['/main-regSave_html']);
         $tmp                = array(
@@ -94,6 +106,9 @@ EOF;
     }
 
     public function logAuth(){
+        if(checkHasLogin()){
+            $this->jump(spUrl('user','index'));
+        }
         $post_data          = $this->spArgs(null, false, 'post');
         $user_lib           = spClass('m_user');
         $user_info          = $user_lib->find(array('username'=>$post_data['username']));
