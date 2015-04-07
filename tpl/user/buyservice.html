@@ -1,0 +1,32 @@
+<div class="row marketing">
+  <div class="col-lg-12">
+    <table class="table table-bordered">
+      <tr class="success">
+        <td>
+          余额：
+          <code><?php echo $user_info['money_amount']?$user_info['money_amount']:'0';?></code> S币
+          <a href="<?php echo spUrl('user','order');?>">充值</a>
+        </td>
+        <td>
+          服务状态：
+          <?php if($user_info['service_id']) {
+            echo '已开通服务 <code>'.$user_info['service_info']['service_name'].'</code>';
+          } else {
+            echo '还未开通服务';
+          }?>
+        </td>
+      </tr>
+    </table>
+    <hr>
+    <table class="table table-bordered">
+      <?php foreach ($service_list as $k => $v) {?>
+      <tr class="warning">
+        <td><?php echo $v['service_name'];?></td>
+        <td><?php echo $v['service_val'];?> 天</td>
+        <td><?php echo $v['service_money'];?> 元</td>
+        <td><a href="<?php echo spUrl('user','buysave', array('service_id'=>$v['service_id']));?>" onclick="if(!confirm('是否要购买 <?php echo $v['service_name'];?>？注意：购买后无法退款。'))return false;">购买</a></td>
+      </tr>
+      <?php }?>
+    </table>
+  </div>
+</div>

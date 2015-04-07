@@ -81,6 +81,14 @@ class user extends spController
     }
 
     public function buyservice(){
+        $user_id                    = $_SESSION['user']['user_id'];
+        $user_lib                   = spClass('m_user');
+        $buyservice_lib             = spClass('m_buyservice');
+        $service_lib                = spClass('m_service');
+        $this->current_service      = $buyservice_lib->get_current_service($user_id);
+        $this->user_info            = $user_lib->spLinker()->find(array('user_id'=>$user_id));
+        $this->service_list         = $service_lib->findAll();
+
         $page               = array(
             'title'     => '购买服务',
             'tag'       => 'buyservice'
@@ -95,6 +103,7 @@ class user extends spController
         $service_id     = (int)$this->spArgs('service_id');
 
         $service_lib    = spClass('m_service');
+
     }
 
     public function tutorial(){
