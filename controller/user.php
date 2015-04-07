@@ -80,6 +80,23 @@ class user extends spController
         }
     }
 
+    public function buyservice(){
+        $page               = array(
+            'title'     => '购买服务',
+            'tag'       => 'buyservice'
+        );
+        $css_js['head_css'] = array('res/css/global.css');
+        $this->page         = $page;
+        tpl_display($this, 'user/buyservice.html', $css_js);
+    }
+
+    public function buysave(){
+        $user_id        = $_SESSION['user']['user_id'];
+        $service_id     = (int)$this->spArgs('service_id');
+
+        $service_lib    = spClass('m_service');
+    }
+
     public function tutorial(){
         $page               = array(
             'title'     => '下载&教程',
