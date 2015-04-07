@@ -54,8 +54,7 @@ function checkHasLogin(){
 /**
  * 生成随机字符串
  */
-function createStr($len = 5)
-{  
+function createStr($len = 5) {  
     $rand_str = '';  
     for ($i = 0; $i < $len; $i++)  
     {
@@ -114,8 +113,7 @@ function findPassEmailContent($user_name, $pass){
     return $html_content;
 }
 
-function is_mobile_request()  
-{  
+function is_mobile_request(){  
     $_SERVER['ALL_HTTP'] = isset($_SERVER['ALL_HTTP']) ? $_SERVER['ALL_HTTP'] : '';  
     $mobile_browser = '0';  
     if(preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i', strtolower($_SERVER['HTTP_USER_AGENT'])))  

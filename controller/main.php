@@ -53,7 +53,7 @@ class main extends spController
             }
         }
         
-        $user_lib           = spClass('m_users');
+        $user_lib           = spClass('m_user');
         $user_info          = $user_lib->find(array('username'=>$post_data['username']));
         if($user_info){
             $this->error('用户名已存在',spUrl('main','reg'));
@@ -61,15 +61,23 @@ class main extends spController
         if($post_data['password']!==$post_data['repassword']){
             $this->error('两次密码不一样',spUrl('main','reg'));
         }
+        $port_lib           = spClass('m_port_pool');
+        $ssport             = $port_lib->get_ss_port();
+        if(!$ssport){
+            $this->error('服务器用户已达上限', spUrl('main','index'));
+        }
 
         $data               = array(
             'username'      => $post_data['username'],
             'password'      => md5($post_data['password']),
             'email'         => $post_data['email'],
-            'sspass'       => $post_data['sspass']
+            'sspass'        => $post_data['sspass'],
+            'create_time'   => time(),
+            'ssport'        => $ssport
         );
 
         if($userid = $user_lib->create($data)){
+            $port_lib->change_status($ssport, 1);
 /*            $subject        = '欢迎注册 GFW.OHSHIT.CC';
             $e              = spUrl('main', 'auth', array('u'=>$userid, 'm'=>md5($post_data['email'])));
             $email_content  = <<<EOF
@@ -87,7 +95,7 @@ EOF;
 
     public function logAuth(){
         $post_data          = $this->spArgs(null, false, 'post');
-        $user_lib           = spClass('m_users');
+        $user_lib           = spClass('m_user');
         $user_info          = $user_lib->find(array('username'=>$post_data['username']));
         if(!$user_info || $user_info['password']!= md5($post_data['password']) ){
             $this->error('用户名或密码错误', spUrl('main', 'login'));
