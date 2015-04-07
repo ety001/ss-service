@@ -12,8 +12,12 @@ class user extends spController
     public function index(){
         $user_lib               = spClass('m_user');
         $buyservice_lib         = spClass('m_buyservice');
+        import('cli.php');
+        $cli_lib                = spClass('cli');
+
         $this->user_info        = $user_lib->spLinker()->find(array('user_id'=>$_SESSION['user']['user_id']));
         $this->buyservice_info  = $buyservice_lib->get_current_service($_SESSION['user']['user_id']);
+        $this->service_status   = $cli_lib->check_status($user_info['ssport']);
         $page                   = array(
             'title'     => '管理',
             'tag'       => 'index'
@@ -141,6 +145,21 @@ class user extends spController
         $css_js['head_css'] = array('res/css/global.css');
         $this->page         = $page;
         tpl_display($this, 'user/tutorial.html', $css_js);
+    }
+
+    public function changeservicestatus(){
+        $switch     = (int)$this->spArgs('s');
+        $user_id    = $_SESSION['user']['user_id'];
+        import('cli.php');
+        $cli_lib    = spClass('cli');
+        $user_lib   = spClass('m_user');
+        $user_info  = $user_lib->find(array('user_id'=>$user_id));
+        if($switch==1){
+            $cli_lib->stop($user_info['ssport'], $user_info['sspass']);
+        } else {
+            $cli_lib->run($user_info['ssport'], $user_info['sspass']);
+        }
+        $this->success('操作成功', spUrl('user','index'));
     }
 
 }
