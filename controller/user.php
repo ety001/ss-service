@@ -42,6 +42,12 @@ class user extends spController
         if($order_lib->find(array('order_id'=>$order_id))){
             $this->error('订单已存在', spUrl('user', 'order'));
         } else {
+            import('TopClient.php');
+            import('TradeFullinfoGetRequest.php');
+            import('LogisticsDummySendRequest.php');
+
+            
+
             $info           = array(
                 'order_id'  => $order_id,
                 'userid'    => $userid

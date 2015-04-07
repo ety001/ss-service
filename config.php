@@ -41,8 +41,15 @@ $spConfig = array(
     'include_path' => array(
         APP_PATH.'/inc',
         APP_PATH.'/inc/phpmailer',
-        APP_PATH.'/inc/top'
+        APP_PATH.'/inc/top',
+        APP_PATH.'/inc/top/request'
     ),
     'siteconfig' => array(
+    ),
+    'order_list'    => array(
+        '44601411246'=>10,//10元
+        '44601479234'=>20,//20元
+        '44667681336'=>50,//50元
+        '44624314489'=>100,//100元
     )
 );

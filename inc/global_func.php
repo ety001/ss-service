@@ -151,3 +151,112 @@ function is_mobile_request(){
     else
         return false;
 }
+
+/**
+ * 验证订单是否支付
+ */
+function auth_order_has_paid($order_id){
+    $msg        = array();
+    if(!$order_id){
+        $msg['status']  = -1;
+        $msg['msg']     = '参数不全';
+        return $msg;//参数不全
+    }
+    import('TopClient.php');
+    import('TradeFullinfoGetRequest.php');
+
+    $key_lib    = spClass('m_key');
+    $key        = $key_lib->findAll();
+
+    if(!$key){
+        $msg['status']  = -2;
+        $msg['msg']     = '未设置key';
+        return $msg;//未设置key
+    }
+
+    $c              = spClass('TopClient');
+    $c->appkey      = $key[0]['appkey'];
+    $c->secretKey   = $key[0]['appsecret'];
+    $c->format      = 'json';
+    $sessionKey     = $key[0]['sessionkey'];
+
+    $req = spClass('TradeFullinfoGetRequest');
+    $req->setFields("seller_nick,buyer_nick,title,type,created,sid,tid,seller_rate,buyer_rate,status,payment,discount_fee,adjust_fee,post_fee,total_fee,pay_time,end_time,modified,consign_time,buyer_obtain_point_fee,point_fee,real_point_fee,received_payment,commission_fee,pic_path,num_iid,num_iid,num,price,cod_fee,cod_status,shipping_type,receiver_name,receiver_state,receiver_city,receiver_district,receiver_address,receiver_zip,receiver_mobile,receiver_phone,orders.title,orders.pic_path,orders.price,orders.num,orders.iid,orders.num_iid,orders.sku_id,orders.refund_status,orders.status,orders.oid,orders.total_fee,orders.payment,orders.discount_fee,orders.adjust_fee,orders.sku_properties_name,orders.item_meal_name,orders.buyer_rate,orders.seller_rate,orders.outer_iid,orders.outer_sku_id,orders.refund_id,orders.seller_type");
+    $req->setTid($order_id);
+    $resp = $c->execute($req, $sessionKey);
+
+    if($resp['code']){
+        $msg['status']  = -3;
+        $msg['msg']     = $resp['sub_msg'];
+        return $msg;
+    }
+
+    if($resp['trade']){
+        $order_status   = $resp['trade']['status'];
+        switch ($order_status) {
+            case 'WAIT_BUYER_PAY':
+                $msg['status']  = -4;
+                $msg['msg']     = '等待付款';
+                $msg['data']    = $resp['trade']['orders']['order'];
+                return $msg;
+                break;
+            case 'WAIT_SELLER_SEND_GOODS':
+                $msg['status']  = 1;
+                $msg['msg']     = '付款成功';
+                $msg['data']    = $resp['trade']['orders']['order'];
+                return $msg;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+/**
+ * 发货
+ */
+function send_order($order_id){
+    $msg        = array();
+    if(!$order_id){
+        $msg['status']  = -1;
+        $msg['msg']     = '参数不全';
+        return $msg;//参数不全
+    }
+    import('TopClient.php');
+    import('LogisticsDummySendRequest.php');
+
+    $key_lib    = spClass('m_key');
+    $key        = $key_lib->findAll();
+
+    if(!$key){
+        $msg['status']  = -2;
+        $msg['msg']     = '未设置key';
+        return $msg;//未设置key
+    }
+
+    $c              = spClass('TopClient');
+    $c->appkey      = $key[0]['appkey'];
+    $c->secretKey   = $key[0]['appsecret'];
+    $c->format      = 'json';
+    $sessionKey     = $key[0]['sessionkey'];
+
+    $req = spClass('LogisticsDummySendRequest');
+    $req->setTid($order_id);
+    return $resp = $c->execute($req, $sessionKey);
+}
+
+/**
+ * 通过订单列表计算应该充值多少钱
+ */
+function caculate_money($orders){
+    if(!$orders)return 0;
+    global $spConfig;
+    $order_list = $spConfig['order_list'];
+    
+    foreach ($orders as $k => $v) {
+        if( array_key_exists($v['num_iid'], $spConfig['order_list']) ){
+            $amount[]   = $spConfig['order_list'][$v['num_iid']] * $v['num'];
+        }
+    }
+    return array_sum($amount);
+}

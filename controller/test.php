@@ -24,6 +24,75 @@ class test extends spController
         echo $buyservice_lib->save_service($arr);
     }
 
+    public function testAuthOrder(){
+        /*$order_id   = '1016983543099926';
+        $info       = auth_order_has_paid($order_id);*/
+
+        $info = array (
+          'status' => -4,
+          'msg' => '等待付款',
+          'data' => 
+          array (
+            0 => 
+            array (
+              'adjust_fee' => '0.00',
+              'buyer_rate' => false,
+              'discount_fee' => '0.00',
+              'num' => 4,
+              'num_iid' => 44601411246,
+              'oid' => 1016983543109926,
+              'payment' => '10.00',
+              'pic_path' => 'http://img04.taobaocdn.com/bao/uploaded/i4/TB1Slg3HXXXXXX9apXXXXXXXXXX_!!0-item_pic.jpg',
+              'price' => '10.00',
+              'refund_status' => 'NO_REFUND',
+              'seller_rate' => false,
+              'seller_type' => 'C',
+              'status' => 'WAIT_BUYER_PAY',
+              'title' => 'SS网站充值，10 S币',
+              'total_fee' => '10.00',
+            ),
+            1 => 
+            array (
+              'adjust_fee' => '0.00',
+              'buyer_rate' => false,
+              'discount_fee' => '0.00',
+              'num' => 1,
+              'num_iid' => 43850827196,
+              'oid' => 1016983543119926,
+              'payment' => '365.00',
+              'pic_path' => 'http://img04.taobaocdn.com/bao/uploaded/i4/TB1Slg3HXXXXXX9apXXXXXXXXXX_!!0-item_pic.jpg',
+              'price' => '365.00',
+              'refund_status' => 'NO_REFUND',
+              'seller_rate' => false,
+              'seller_type' => 'C',
+              'status' => 'WAIT_BUYER_PAY',
+              'title' => '请ETY001吃一年的巴依老爷~~',
+              'total_fee' => '365.00',
+            ),
+            2 => 
+            array (
+              'adjust_fee' => '0.00',
+              'buyer_rate' => false,
+              'discount_fee' => '0.00',
+              'num' => 2,
+              'num_iid' => 44667681336,
+              'oid' => 1016983543129926,
+              'payment' => '4.00',
+              'pic_path' => 'http://img04.taobaocdn.com/bao/uploaded/i4/TB1Slg3HXXXXXX9apXXXXXXXXXX_!!0-item_pic.jpg',
+              'price' => '2.00',
+              'refund_status' => 'NO_REFUND',
+              'seller_rate' => false,
+              'seller_type' => 'C',
+              'status' => 'WAIT_BUYER_PAY',
+              'title' => '请ETY001吃包辣条',
+              'total_fee' => '4.00',
+            ),
+          ),
+        );
+        $amount     = caculate_money($info['data']);
+        var_dump($amount);
+    }
+
     public function email(){
         sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
     }
