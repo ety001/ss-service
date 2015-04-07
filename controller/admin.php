@@ -58,16 +58,6 @@ class admin extends spController
         $this->jump(spUrl('admin','index'));
     }
 
-    public function verifyorder(){
-        $id            = $this->spArgs('id');
-        $order_lib          = spClass('m_order');
-        $info               = array(
-            'status'    => 1
-        );
-        $order_lib->update(array('id'=>$id), $info);
-        $this->jump(spUrl('user','admin'));
-    }
-
     public function savekey(){
         $arr['appkey']      = $this->spArgs('appkey');
         $arr['appsecret']   = $this->spArgs('appsecret');
