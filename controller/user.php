@@ -17,7 +17,7 @@ class user extends spController
 
         $this->user_info        = $user_lib->spLinker()->find(array('user_id'=>$_SESSION['user']['user_id']));
         $this->buyservice_info  = $buyservice_lib->get_current_service($_SESSION['user']['user_id']);
-        $this->service_status   = $cli_lib->check_status($user_info['ssport']);
+        $this->service_status   = $cli_lib->check_status($this->user_info['ssport']);
         $page                   = array(
             'title'     => '管理',
             'tag'       => 'index'
@@ -31,7 +31,7 @@ class user extends spController
         $order_lib          = spClass('m_order');
         $this->order_info   = $order_lib->findAll(array('user_id'=>$_SESSION['user']['user_id']));
         $page               = array(
-            'title'     => '购买',
+            'title'     => '充值',
             'tag'       => 'order'
         );
         $css_js['head_css'] = array('res/css/global.css');

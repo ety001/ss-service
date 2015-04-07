@@ -94,6 +94,15 @@ class test extends spController
     }
 
     public function email(){
-        sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
+        //sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
+    }
+
+    public function testCliCheckStatus(){
+        $user_lib               = spClass('m_user');
+        import('cli.php');
+        $cli_lib                = spClass('cli');
+        $this->user_info        = $user_lib->find(array('user_id'=>$_SESSION['user']['user_id']));
+        $this->service_status   = $cli_lib->check_status($this->user_info['ssport']);
+        var_dump($this->service_status);
     }
 }
