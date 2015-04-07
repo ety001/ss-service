@@ -37,23 +37,46 @@ class user extends spController
 
     public function orderSave(){
         $order_id           = $this->spArgs('order_id', false, 'post');
-        $userid             = $_SESSION['user']['userid'];
+        $user_id            = $_SESSION['user']['user_id'];
         $order_lib          = spClass('m_order');
+        $user_lib           = spClass('m_user');
         if($order_lib->find(array('order_id'=>$order_id))){
             $this->error('订单已存在', spUrl('user', 'order'));
         } else {
-            import('TopClient.php');
-            import('TradeFullinfoGetRequest.php');
-            import('LogisticsDummySendRequest.php');
-
-            
+            $info   = auth_order_has_paid($order_id);
+            switch ($info['status']) {
+                case -1:
+                    $this->error($info['msg'], spUrl('user','order'));
+                    break;
+                case -2:
+                    $this->error($info['msg'], spUrl('user','order'));
+                    break;
+                case -3:
+                    $this->error($info['msg'], spUrl('user','order'));
+                    break;
+                case -4:
+                    $this->error($info['msg'], spUrl('user','order'));
+                    break;
+                case 1:
+                    $amount     = caculate_money($info['data']);
+                    send_order($order_id);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
 
             $info           = array(
-                'order_id'  => $order_id,
-                'userid'    => $userid
+                'order_code'    => $order_id,
+                'user_id'       => $user_id,
+                'order_money'   => $amount,
+                'order_time'    => time(),
+                'order_status'  => 1
             );
             $order_lib->create($info);
-            $this->success('添加订单成功，请等待管理员审核', spUrl('user', 'order'));
+            $user_lib->change_money($user_id, $amount);
+
+            $this->success('充值'.$amount.' S币成功', spUrl('user', 'order'));
         }
     }
 
