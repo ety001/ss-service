@@ -38,7 +38,7 @@
           <ul class="nav nav-pills pull-right">
             <?php if($_SESSION['user']){?>
             <li role="presentation" <?php if($page['tag']=='index'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'index');?>">管理</a></li>
-            <li role="presentation" <?php if($page['tag']=='order'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'order');?>">购买</a></li>
+            <li role="presentation" <?php if($page['tag']=='order'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'order');?>">充值</a></li>
             <li role="presentation" <?php if($page['tag']=='tutorial'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'tutorial');?>">教程</a></li>
             <li role="presentation"><a href="<?php echo spUrl('main', 'logout');?>">退出</a></li>
             <?php } else {?>

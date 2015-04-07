@@ -13,6 +13,14 @@
               break;
           }?>
         </td>
+      </tr>
+      <tr class="success">
+        <td>用户余额</td>
+        <td>
+          <code><?php echo $user_info['money_amount']?$user_info['money_amount']:'0';?></code> S币
+          <a href="<?php echo spUrl('user','order');?>">充值</a>
+        </td>
+      </tr>
       <tr class="success">
         <td>用户状态</td>
         <td>
