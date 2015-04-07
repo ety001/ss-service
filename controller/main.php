@@ -107,4 +107,44 @@ EOF;
     public function auth(){
 
     }
+
+    /**
+     * 淘宝回调接口
+     */
+    public function cb(){
+        $arr['top_appkey']             = $this->spArgs('top_appkey');
+        $arr['top_parameters']         = $this->spArgs('top_parameters');
+        $arr['top_session']            = $this->spArgs('top_session');
+        $arr['top_sign']               = $this->spArgs('top_sign');
+
+        foreach ($arr as $k => $v) {
+            $arr[$k]    = urldecode($v);
+        }
+
+        $p              = base64_decode($arr['top_parameters']);
+        $params         = array();
+        $t1             = explode('&', $p);
+        foreach ($t1 as $val) {
+            $tmp    = explode('=', $val);
+            $params[ $tmp[0] ] = $tmp[1];
+        }
+
+        $key_lib        = spClass('m_key');
+        $app            = $key_lib->findAll();
+
+        $tmp_sign       = $app[0]['appkey'] . $arr['top_parameters'] . $arr['top_session'] . $app[0]['appsecret'];
+        
+        $mysign         = base64_encode( md5($tmp_sign,true) );
+
+        if($mysign == $arr['top_sign']){
+            $info       = array(
+                'refresh'       => $params['refresh_token'],
+                'sessionkey'    => $arr['top_session']
+            );
+            $key_lib->update(array('appkey'=>$app[0]['appkey']), $info);
+            $this->jump(spUrl('admin','index'));
+        } else {
+            $this->error('验证失败', spUrl('main','index'));
+        }
+    }
 }

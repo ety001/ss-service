@@ -16,7 +16,7 @@ class admin extends spController
         $buyservice_lib         = spClass('m_buyservice');
         $user_lib               = spClass('m_user');
         $order_lib              = spClass('m_order');
-
+        $key_lib                = spClass('m_key');
 
         $user_info              = $user_lib->findAll();
 
@@ -29,6 +29,7 @@ class admin extends spController
 
         $this->user_info        = $user_info;
         $this->order_info       = $order_lib->spLinker()->findAll();
+        $this->app              = $key_lib->find(array('key_id'=>1));
 
         $page               = array(
             'title'     => 'admin',
@@ -65,5 +66,14 @@ class admin extends spController
         );
         $order_lib->update(array('id'=>$id), $info);
         $this->jump(spUrl('user','admin'));
+    }
+
+    public function savekey(){
+        $arr['appkey']      = $this->spArgs('appkey');
+        $arr['appsecret']   = $this->spArgs('appsecret');
+        $arr['sessionkey']  = '';
+        $arr['refresh']     = '';
+        spClass('m_key')->create($arr);
+        $this->jump('http://container.open.taobao.com/container?appkey='.$arr['appkey'].'&encode=utf-8');
     }
 }
