@@ -44,8 +44,7 @@ class main extends spController
             'password'      => '密码不能为空',
             'repassword'    => '密码不能为空',
             'email'         => 'email不能为空',
-            'vpnname'       => 'vpn的登录名不能为空',
-            'vpnpass'       => 'vpn的登录密码不能为空'
+            'sspass'       => 'Shadowsocks密码不能为空'
         );
         //检查是否为空
         foreach ($post_data as $k => $v) {
@@ -67,8 +66,7 @@ class main extends spController
             'username'      => $post_data['username'],
             'password'      => md5($post_data['password']),
             'email'         => $post_data['email'],
-            'vpnname'       => $post_data['vpnname'],
-            'vpnpass'       => $post_data['vpnpass']
+            'sspass'       => $post_data['sspass']
         );
 
         if($userid = $user_lib->create($data)){

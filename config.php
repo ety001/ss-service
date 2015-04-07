@@ -4,11 +4,11 @@ define("SP_PATH",dirname(__FILE__).'/SpeedPHP');
 $spConfig = array(
     'db' => array( // 数据库设置
         'driver' => 'mysqli',
-        'host' => getenv('GFW_HOST'),  // 数据库地址
-        'login' => getenv('GFW_USER'), // 数据库用户名
-        'password' => getenv('GFW_PASS'), // 数据库密码
-        'database' => getenv('GFW_DB'), // 数据库的库名称
-        'prefix' => getenv('GFW_PREFIX') // 表前缀
+        'host' => getenv('SS_HOST'),  // 数据库地址
+        'login' => getenv('SS_USER'), // 数据库用户名
+        'password' => getenv('SS_PASS'), // 数据库密码
+        'database' => getenv('SS_DB'), // 数据库的库名称
+        'prefix' => getenv('SS_PREFIX') // 表前缀
     ),
     'sp_cache' => APP_PATH.'/tmp',
     'view' => array( // 视图配置
