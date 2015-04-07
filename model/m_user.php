@@ -24,4 +24,14 @@ class m_user extends spModel
             return false;
         }
     }
+
+    public function change_money($user_id=0, $chg=0){
+        $conditions = array('user_id'=>$user_id);
+        $user_info  = $this->find($conditions);
+        $new_money_amount = $user_info['money_amount'] + $chg;
+        if($new_money_amount<0){
+            return false;
+        }
+        return $this->updateField($conditions, 'money_amount', $new_money_amount);
+    }
 }

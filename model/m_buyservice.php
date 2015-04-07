@@ -29,11 +29,14 @@ class m_buyservice extends spModel
     public function save_service($arr){
         if($arr){
             $service_lib    = spClass('m_service');
+            $user_lib       = spClass('m_user');
             $service_info   = $service_lib->find(array('service_id'=>$arr['service_id']));
             if($service_info['service_type']==2){
                 $arr['end_time']    = $arr['buy_time'] + 24*3600*$service_info['service_val'];
             }
-            return $this->create($arr);
+            if($this->create($arr)){
+                return $user_lib->change_money($arr['user_id'], -1*$service_info['service_money']);
+            }
         } else {
             return false;
         }
