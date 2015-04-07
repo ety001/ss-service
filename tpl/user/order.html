@@ -16,11 +16,13 @@
     <table class="table table-bordered table-striped">
       <thead>
         <th>订单号</th>
+        <th>金额</th>
         <th>状态</th>
       </thead>
       <?php foreach ($order_info as $k => $v) {?>
       <tr>
         <td><?php echo $v['order_code'];?></td>
+        <td><?php echo $v['order_money'];?></td>
         <td>
           <?php switch ($v['order_status']) {
             case 0:

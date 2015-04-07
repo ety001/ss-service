@@ -39,6 +39,7 @@
             <?php if($_SESSION['user']){?>
             <li role="presentation" <?php if($page['tag']=='index'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'index');?>">管理</a></li>
             <li role="presentation" <?php if($page['tag']=='order'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'order');?>">充值</a></li>
+            <li role="presentation" <?php if($page['tag']=='buyservice'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'buyservice');?>">购买</a></li>
             <li role="presentation" <?php if($page['tag']=='tutorial'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'tutorial');?>">下载</a></li>
             <?php if($_SESSION['user']['username']=='ety001'){?>
               <li role="presentation" <?php if($page['tag']=='admin'){?>class="active"<?php }?> ><a href="<?php echo spUrl('admin', 'index');?>">后台</a></li>

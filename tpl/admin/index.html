@@ -60,27 +60,25 @@
     <thead>
       <th>订单号</th>
       <th>username</th>
+      <th>金额</th>
       <th>状态</th>
-      <th>操作</th>
     </thead>
     <?php foreach ($order_info as $k => $v) {?>
     <tr>
-      <td><?php echo $v['order_id'];?></td>
+      <td><?php echo $v['order_code'];?></td>
       <td><?php echo $v['user_info']['username'];?></td>
       <td>
-        <?php switch ($v['status']) {
+        <?php echo $v['order_money']?$v['order_money']:0;?>
+      </td>
+      <td>
+        <?php switch ($v['order_status']) {
           case 0:
             echo '审核中';
             break;
           case 1:
-            echo '审核成功';
+            echo '充值成功';
             break;
         }?>
-      </td>
-      <td>
-        <?php if($v['status']==0){?>
-        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','verifyorder',array('id'=>$v['id']));?>">审核</a>
-        <?php }?>
       </td>
     </tr>
     <?php }?>
