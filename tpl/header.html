@@ -40,6 +40,9 @@
             <li role="presentation" <?php if($page['tag']=='index'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'index');?>">管理</a></li>
             <li role="presentation" <?php if($page['tag']=='order'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'order');?>">充值</a></li>
             <li role="presentation" <?php if($page['tag']=='tutorial'){?>class="active"<?php }?> ><a href="<?php echo spUrl('user', 'tutorial');?>">教程</a></li>
+            <?php if($_SESSION['user']['username']=='ety001'){?>
+              <li role="presentation" <?php if($page['tag']=='admin'){?>class="active"<?php }?> ><a href="<?php echo spUrl('admin', 'index');?>">后台</a></li>
+            <?php }?>
             <li role="presentation"><a href="<?php echo spUrl('main', 'logout');?>">退出</a></li>
             <?php } else {?>
             <li role="presentation" <?php if($page['tag']=='index'){?>class="active"<?php }?> ><a href="<?php echo spUrl('main', 'index');?>">首页</a></li>
