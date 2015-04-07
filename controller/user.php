@@ -131,6 +131,7 @@ class user extends spController
             'buy_time'      => time()
         );
         $buyservice_lib->save_service($arr);
+        $user_lib->updateField(array('user_id'=>$user_id), 'service_id', $service_id);
 
         import('cli.php');
         spClass('cli')->run($user_info['ssport'], $user_info['sspass']);
@@ -160,7 +161,7 @@ class user extends spController
             $cli_lib->stop($user_info['ssport'], $user_info['sspass']);
         } else {
             if($buyservice_info['end_time']<time()){
-                $this->error('您的服务已经终止了，请续费继续使用');
+                $this->error('您的服务已经终止了，请续费继续使用', spUrl('user','buyservice'));
             }
             $cli_lib->run($user_info['ssport'], $user_info['sspass']);
         }

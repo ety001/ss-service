@@ -26,6 +26,9 @@ class m_buyservice extends spModel
         }
     }
 
+    /**
+     * 保存购买的服务，并扣费
+     */
     public function save_service($arr){
         if($arr){
             $service_lib    = spClass('m_service');

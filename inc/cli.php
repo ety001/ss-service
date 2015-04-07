@@ -32,4 +32,10 @@ class cli
         $pid        = $this->get_pid($ssport);
         return $this->chk($pid);
     }
+
+    public function list_all(){
+        $command    = sprintf("ps aux | grep -v 'grep' | grep ssserver | awk -F ' ' '{print $2}'");
+        exec($command, $out, $status);
+        return $out;
+    }
 }
