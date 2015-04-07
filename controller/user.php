@@ -151,12 +151,17 @@ class user extends spController
         $switch     = (int)$this->spArgs('s');
         $user_id    = $_SESSION['user']['user_id'];
         import('cli.php');
-        $cli_lib    = spClass('cli');
-        $user_lib   = spClass('m_user');
-        $user_info  = $user_lib->find(array('user_id'=>$user_id));
+        $cli_lib            = spClass('cli');
+        $user_lib           = spClass('m_user');
+        $buyservice_lib     = spClass('m_buyservice');
+        $user_info          = $user_lib->spLinker()->find(array('user_id'=>$user_id));
+        $buyservice_info    = $buyservice_lib->get_current_service($user_id);
         if($switch==1){
             $cli_lib->stop($user_info['ssport'], $user_info['sspass']);
         } else {
+            if($buyservice_info['end_time']<time()){
+                $this->error('您的服务已经终止了，请续费继续使用');
+            }
             $cli_lib->run($user_info['ssport'], $user_info['sspass']);
         }
         $this->success('操作成功', spUrl('user','index'));
