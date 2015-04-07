@@ -17,7 +17,7 @@
         <td>用户状态</td>
         <td>
           <?php if($user_info['service_id']) {
-            echo '已开通服务 <b>'.$user_info['service_info']['service_name'].'</b>';
+            echo '已开通服务 <code>'.$user_info['service_info']['service_name'].'</code>';
           } else {
             echo '还未开通服务';
           }?>
@@ -27,8 +27,8 @@
         <td>服务开始时间</td>
         <td>
           <?php 
-          if($user_info['start_time']){
-            echo date('Y-m-d H:i:s', $user_info['start_time']);
+          if($buyservice_info['buy_time']){
+            echo date('Y-m-d H:i:s', $buyservice_info['buy_time']);
           } else {
             echo '--';
           }
@@ -39,53 +39,25 @@
         <td>服务到期时间</td>
         <td>
           <?php 
-          if($user_info['end_time']){
-            echo date('Y-m-d H:i:s', $user_info['end_time']);
+          if($buyservice_info['end_time']){
+            echo date('Y-m-d H:i:s', $buyservice_info['end_time']);
           } else {
             echo '--';
           }
           ?>
         </td>
       </tr>
-      <tr class="info">
-        <td>PPTP VPN 服务器地址</td>
-        <td><code>gfw1.ohshit.cc</code></td>
-      </tr>
-      <tr class="info">
-        <td>PPTP VPN 登录名</td>
-        <td><code><?php echo $user_info['vpnname'];?></code></td>
-      </tr>
-      <tr class="info">
-        <td>PPTP VPN 登录密码</td>
-        <td><code><?php echo $user_info['vpnpass'];?></code></td>
-      </tr>
-      <tr class="active">
-        <td>L2TP VPN 服务器地址</td>
-        <td><code>gfw1.ohshit.cc</code></td>
-      </tr>
-      <tr class="active">
-        <td>L2TP VPN 登录名</td>
-        <td><code><?php echo $user_info['vpnname'];?></code></td>
-      </tr>
-      <tr class="active">
-        <td>L2TP VPN 登录密码</td>
-        <td><code><?php echo $user_info['vpnpass'];?></code></td>
-      </tr>
-      <tr class="active">
-        <td>L2TP 密钥(IPSEC)</td>
-        <td><code>gfwohshitcc</code></td>
-      </tr>
       <tr class="warning">
         <td>Shadowsocks 服务器地址</td>
-        <td><code>gfw1.ohshit.cc</code></td>
+        <td><code>gfw1.fuckspam.in</code></td>
       </tr>
       <tr class="warning">
         <td>Shadowsocks 服务器端口</td>
-        <td><code><?php echo ($user_info['port'])?$user_info['port']:'--';?></code></td>
+        <td><code><?php echo ($user_info['ssport'])?$user_info['ssport']:'--';?></code></td>
       </tr>
       <tr class="warning">
         <td>Shadowsocks 服务器密码</td>
-        <td><code><?php echo $user_info['vpnpass'];?></code></td>
+        <td><code><?php echo $user_info['sspass'];?></code></td>
       </tr>
       <tr class="warning">
         <td>Shadowsocks 服务器加密方式</td>

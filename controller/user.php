@@ -10,9 +10,11 @@ class user extends spController
     }
 
     public function index(){
-        $user_lib           = spClass('m_user');
-        $this->user_info    = $user_lib->spLinker()->find(array('user_id'=>$_SESSION['user']['user_id']));
-        $page               = array(
+        $user_lib               = spClass('m_user');
+        $buyservice_lib         = spClass('m_buyservice');
+        $this->user_info        = $user_lib->spLinker()->find(array('user_id'=>$_SESSION['user']['user_id']));
+        $this->buyservice_info  = $buyservice_lib->get_current_service($_SESSION['user']['user_id']);
+        $page                   = array(
             'title'     => '管理',
             'tag'       => 'index'
         );
