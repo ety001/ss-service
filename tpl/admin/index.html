@@ -4,12 +4,10 @@
     <thead>
       <th>username</th>
       <th>email</th>
-      <th>vpnname</th>
-      <th>vpnpass</th>
+      <th>服务</th>
       <th>start_time</th>
       <th>end_time</th>
       <th>user_type</th>
-      <th>status</th>
       <th>端口</th>
       <th>操作</th>
     </thead>
@@ -17,8 +15,7 @@
     <tr>
       <td><?php echo $v['username'];?></td>
       <td><?php echo $v['email'];?></td>
-      <td><?php echo $v['vpnname'];?></td>
-      <td><?php echo $v['vpnpass'];?></td>
+      <td><?php echo $v['service_info']['service_info']['service_name']?$v['service_info']['service_info']['service_name']:'--';?></td>
       <td><?php echo $v['start_time']?date('Y-m-d H:i:s', $v['start_time']):'--';?></td>
       <td><?php echo $v['end_time']?date('Y-m-d H:i:s', $v['end_time']):'--';?></td>
       <td>
@@ -32,31 +29,14 @@
         }?>
       </td>
       <td>
-        <?php switch ($v['status']) {
-          case 0:
-            echo '<span class="label label-warning">未审核</span>';
-            break;
-          case 1:
-            echo '<span class="label label-success">审核成功</span>';
-            break;
-        }?>
-      </td>
-      <td>
-        <input id="port_<?php echo $v['userid'];?>" value="<?php echo $v['port'];?>"><button onclick="p('<?php echo $v['userid'];?>');">save</button>
+        <?php echo $v['ssport'];?>
       </td>
       <td>
         <?php if($v['user_type']!=1){?>
-        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['userid'],'vip'=>$v['user_type']));?>">VIP</a>
+        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">VIP</a>
         <?php } else {?>
-        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['userid'],'vip'=>$v['user_type']));?>">取消VIP</a>
+        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">取消VIP</a>
         <?php }?>
-        <br>
-        <?php if($v['status']!=1){?>
-        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','chgstatus',array('user_id'=>$v['userid'],'status'=>$v['status']));?>">开通</a>
-        <?php }else{?>
-        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('user','chgstatus',array('user_id'=>$v['userid'],'status'=>$v['status']));?>">取消开通</a>
-        <?php }?>
-        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','addoneyear',array('user_id'=>$v['userid']));?>">续费一年</a>
       </td>
     </tr>
     <?php }?>
