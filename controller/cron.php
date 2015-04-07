@@ -29,7 +29,7 @@ class cron extends spController
                 $user_lib->updateField( array('user_id'=>$uid), 'service_id', 0);
                 $cli_lib->stop($user['ssport'], $user['sspass']);
             } else {
-                $tmp_status     = $cli->check_status($user['ssport']);
+                $tmp_status     = $cli_lib->check_status($user['ssport']);
                 if(!$tmp_status){
                     $cli_lib->run($user['ssport'], $user['sspass']);
                 }
