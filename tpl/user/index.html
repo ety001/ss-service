@@ -21,8 +21,8 @@
           <a href="<?php echo spUrl('user','order');?>">充值</a>
         </td>
       </tr>
-      <tr class="success">
-        <td>用户状态</td>
+      <tr class="warning">
+        <td>服务状态</td>
         <td>
           <?php if($user_info['service_id']) {
             echo '已开通服务 <code>'.$user_info['service_info']['service_name'].'</code>';
@@ -31,7 +31,7 @@
           }?>
         </td>
       </tr>
-      <tr class="success">
+      <tr class="warning">
         <td>服务开始时间</td>
         <td>
           <?php 
@@ -43,7 +43,7 @@
           ?>
         </td>
       </tr>
-      <tr class="success">
+      <tr class="warning">
         <td>服务到期时间</td>
         <td>
           <?php 

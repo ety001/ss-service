@@ -82,7 +82,7 @@ class user extends spController
 
     public function tutorial(){
         $page               = array(
-            'title'     => '教程',
+            'title'     => '下载&教程',
             'tag'       => 'tutorial'
         );
         $css_js['head_css'] = array('res/css/global.css');

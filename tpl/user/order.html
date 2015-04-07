@@ -20,14 +20,14 @@
       </thead>
       <?php foreach ($order_info as $k => $v) {?>
       <tr>
-        <td><?php echo $v['order_id'];?></td>
+        <td><?php echo $v['order_code'];?></td>
         <td>
-          <?php switch ($v['status']) {
+          <?php switch ($v['order_status']) {
             case 0:
               echo '审核中';
               break;
             case 1:
-              echo '审核成功';
+              echo '充值成功';
               break;
           }?>
         </td>
