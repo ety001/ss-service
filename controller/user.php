@@ -99,11 +99,38 @@ class user extends spController
     }
 
     public function buysave(){
-        $user_id        = $_SESSION['user']['user_id'];
-        $service_id     = (int)$this->spArgs('service_id');
+        $user_id            = $_SESSION['user']['user_id'];
+        
+        $service_id         = (int)$this->spArgs('service_id');
 
-        $service_lib    = spClass('m_service');
+        $service_lib        = spClass('m_service');
+        $buyservice_lib     = spClass('m_buyservice');
+        $user_lib           = spClass('m_user');
+        $user_info          = $user_lib->spLinker()->find(array('user_id'=>$user_id));
+        //获取服务详情
+        $service_info       = $service_lib->find(array('service_id'=>$service_id));        
+        $chk                = $user_lib->chk_money($user_id, $service_info['service_money']);
+        if(!$chk){
+            $this->error('余额不足，请先充值', spUrl('user','order'));
+            return;
+        }
 
+        $chk_service        = $buyservice_lib->chk_service($user_id);
+        if($chk_service){
+            $this->error('有正在使用的服务，请等服务到期后再购买。', spUrl('user','buyservice'));
+            return;
+        }
+
+        $arr    = array(
+            'service_id'    => $service_id,
+            'user_id'       => $user_id,
+            'buy_time'      => time()
+        );
+        $buyservice_lib->save_service($arr);
+
+        import('cli.php');
+        spClass('cli')->run($user_info['ssport'], $user_info['sspass']);
+        $this->success('购买成功', spUrl('user','buyservice'));
     }
 
     public function tutorial(){
