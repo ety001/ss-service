@@ -16,13 +16,10 @@
       <tr class="success">
         <td>用户状态</td>
         <td>
-          <?php switch ($user_info['status']) {
-            case 0:
-              echo '未开通&nbsp;&nbsp;--》<a href="'.spUrl('user', 'order').'">去开通</a>';
-              break;
-            case 1:
-              echo '已开通';
-              break;
+          <?php if($user_info['service_id']) {
+            echo '已开通服务 <b>'.$user_info['service_info']['service_name'].'</b>';
+          } else {
+            echo '还未开通服务';
           }?>
         </td>
       </tr>

@@ -45,7 +45,7 @@ function ajax_output($status=0, $msg=null, $info=array()) {
  * 检查是否已登录
  */
 function checkHasLogin(){
-    if(isset($_SESSION['user']) && $_SESSION['user']['userid']>0){
+    if(isset($_SESSION['user']) && $_SESSION['user']['user_id']>0){
         return true;
     }
     return false;

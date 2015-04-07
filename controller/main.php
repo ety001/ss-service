@@ -3,7 +3,7 @@ class main extends spController
 {
 	public function index(){
         $page               = array(
-            'title'     => '私人定制',
+            'title'     => 'SS',
             'tag'       => 'index'
         );
         $css_js['head_css'] = array('res/css/global.css');
@@ -13,7 +13,7 @@ class main extends spController
 
     public function reg(){
         $page               = array(
-            'title'     => '注册私人定制',
+            'title'     => 'SS',
             'tag'       => 'reg'
         );
         $css_js['head_css'] = array('res/css/global.css');
@@ -106,9 +106,5 @@ EOF;
 
     public function auth(){
 
-    }
-
-    public function test(){
-        sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
     }
 }
