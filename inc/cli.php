@@ -21,7 +21,7 @@ class cli
     public function chk($pid){
         $command    = sprintf("ps aux |awk  -F ' '  '{print $2}'| grep %s", $pid);
         exec($command, $output, $status);
-        if($output){
+        if($output[0]){
             return true;
         } else {
             return false;
