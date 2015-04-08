@@ -46,6 +46,9 @@ $spConfig = array(
     ),
     'siteconfig' => array(
     ),
+    'mail' => array(
+        'pass' => getenv('SS_EMAIL_PASS')
+    ),
     'order_list'    => array(
         '44601411246'=>10,//10元
         '44601479234'=>20,//20元

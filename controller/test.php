@@ -94,15 +94,24 @@ class test extends spController
     }
 
     public function email(){
-        //sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
+      $subject        = '欢迎注册 GFW.FUCKSPAM.IN';
+      $e              = spUrl('main', 'auth', array('u'=>1, 'm'=>md5('ety001@domyself.me')));
+      $email_content  = <<<EOF
+ETY001, 您好
+感谢您注册私人定制GFW，下面是邮箱验证链接，
+<a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a>
+希望您使用愉快~
+EOF;
+            //sendmail('ety001@domyself.me', $subject, $email_content, 'ety001');
+        sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
     }
 
     public function testCliCheckStatus(){
-        $user_lib               = spClass('m_user');
+        /*$user_lib               = spClass('m_user');
         import('cli.php');
         $cli_lib                = spClass('cli');
         $this->user_info        = $user_lib->find(array('user_id'=>$_SESSION['user']['user_id']));
         $this->service_status   = $cli_lib->check_status($this->user_info['ssport']);
-        var_dump($this->service_status);
+        var_dump($this->service_status);*/
     }
 }
