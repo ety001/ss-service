@@ -81,6 +81,8 @@ class user extends spController
         $this->user_info            = $user_lib->spLinker()->find(array('user_id'=>$user_id));
         $this->service_list         = $service_lib->findAll();
 
+        $this->service_limit        = !$buyservice_lib->chk_service_limit();
+
         $page               = array(
             'title'     => '购买服务',
             'tag'       => 'buyservice'
