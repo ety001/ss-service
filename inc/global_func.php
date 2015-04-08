@@ -106,11 +106,22 @@ function sendmail($to_user, $subject, $content, $user_name){
 /**
  * 找回密码邮件内容
  */
-function findPassEmailContent($user_name, $pass){
+function find_pass_email_content($user_name, $pass){
     if(!$user_name||!$pass)return;
     $html_content   = '<p>'.$user_name.'，您好</p>';
     $html_content   .= '<p>这是您的新密码，请尽快登录修改</p>';
     $html_content   .= '<p>'.$pass.'</p>';
+    $html_content   .= '<p>祝您使用愉快！</p>';
+    return $html_content;
+}
+
+/**
+ * 获取佣金的邮件内容
+ */
+function invite_get_pay_content($user_name, $invited_user_name, $money){
+    $html_content   = '<p>'.$user_name.'，您好</p>';
+    $html_content   .= '<p>'.$invited_user_name.' 通过您的邀请链接注册并完成第一次充值了。</p>';
+    $html_content   .= '<p>您获得了 '.$money.' 元佣金奖励。<a href="http://gfw.fuckspam.in/user-buyservice.html">点击这里查看</a></p>';
     $html_content   .= '<p>祝您使用愉快！</p>';
     return $html_content;
 }

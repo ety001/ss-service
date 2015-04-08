@@ -39,9 +39,22 @@ class m_invite extends spModel
             'invited_user_id'   => $user_id,
             'has_pay'           => 0
         );
-        $info       = $this->find($conditions);
+        $info       = $this->spLinker()->find($conditions);
         if(!$info)return false;
         $this->updateField($conditions, 'has_pay', $money);
-        return spClass('m_user')->change_money($info['user_id'], $money);
+        $return = spClass('m_user')->change_money($info['user_id'], $money);
+
+        $email_content  = invite_get_pay_content(
+                            $info['user_info']['username'], 
+                            $info['invited_user_info']['username'], 
+                            $money
+                        );
+
+        $email_title    = '恭喜您获得了 '. $money. ' 元的佣金';
+        sendmail($user_info['user_info']['email'], 
+                    $email_title, $email_content, 
+                    $info['user_info']['username']);
+
+        return $return;
     }
 }
