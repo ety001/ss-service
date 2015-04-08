@@ -1,0 +1,30 @@
+<div class="row marketing">
+  <div class="col-lg-12">
+    <table class="table table-bordered">
+      <tr class="success">
+        <td>邀请小伙伴加入，小伙伴第一次充值的金额，将会作为佣金发放给你作为奖励~快去邀请吧~</td>
+      </tr>
+      <tr class="success">
+        <td>
+          你的邀请链接：
+          <code><a href="http://gfw.fuckspam.in<?php echo spUrl('main','reg', array('i'=>$user_id));?>">http://gfw.fuckspam.in<?php echo spUrl('main','reg', array('i'=>$user_id));?></a></code>
+        </td>
+      </tr>
+    </table>
+    <?php if($invite_list){?>
+    <hr>
+    <table class="table table-bordered">
+      <thead>
+        <th>邀请的小伙伴</th>
+        <th>你获取的佣金</th>
+    </thead>
+      <?php foreach ($invite_list as $k => $v) {?>
+      <tr class="warning">
+        <td><?php echo $v['invited_user_info']['username'];?></td>
+        <td><?php echo $v['has_pay'];?> 元</td>
+      </tr>
+      <?php }?>
+    </table>
+    <?php }?>
+  </div>
+</div>

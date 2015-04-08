@@ -2,6 +2,10 @@
   <div class="col-lg-12">
     <table class="table table-bordered">
       <tr class="success">
+        <td>用户登录名</td>
+        <td><?php echo $user_info['username'];?></td>
+      </tr>
+      <tr class="success">
         <td>用户类型</td>
         <td>
           <?php switch ($user_info['user_type']) {

@@ -153,4 +153,17 @@ class user extends spController
         $this->success('操作成功', spUrl('user','index'));
     }
 
+    public function invite(){
+        $this->user_id      = $_SESSION['user']['user_id'];
+
+        $this->invite_list  = spClass('m_invite')->spLinker()->findAll(array('user_id'=>$this->user_id));
+        $page               = array(
+            'title'     => '邀请好友',
+            'tag'       => 'invite'
+        );
+        $css_js['head_css'] = array('res/css/global.css');
+        $this->page         = $page;
+        tpl_display($this, 'user/invite.html', $css_js);
+    }
+
 }
