@@ -44,8 +44,8 @@ class user extends spController
         $user_id            = $_SESSION['user']['user_id'];
         $order_lib          = spClass('m_order');
         $user_lib           = spClass('m_user');
-        if($order_lib->find(array('order_id'=>$order_id))){
-            $this->error('订单已存在', spUrl('user', 'order'));
+        if($order_lib->find(array('order_code'=>$order_id))){
+            $this->error('该订单已充值', spUrl('user', 'order'));
         } else {
             $info   = auth_order_has_paid($order_id);
             if($info['status']==1){
