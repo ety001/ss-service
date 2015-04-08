@@ -52,4 +52,17 @@ class m_buyservice extends spModel
         );
         return $this->find($conditions);
     }
+
+    /**
+     * 超过服务器上限判断
+     */
+    public function chk_service_limit(){
+        global $spConfig;
+        $service_num     = $this->findCount(array('status'=>1));
+        if($spConfig['service_limit']<$service_num){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

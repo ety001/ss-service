@@ -98,6 +98,11 @@ class user extends spController
         $service_lib        = spClass('m_service');
         $buyservice_lib     = spClass('m_buyservice');
         $user_lib           = spClass('m_user');
+
+        if(!$buyservice_lib->chk_service_limit()){
+            $this->error('服务已售光，请等待扩容 :( ', spUrl('user','index'));
+        }
+
         $user_info          = $user_lib->spLinker()->find(array('user_id'=>$user_id));
         //获取服务详情
         $service_info       = $service_lib->find(array('service_id'=>$service_id));        
