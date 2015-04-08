@@ -126,7 +126,10 @@ EOF;
     public function auth(){
         $u  = (int)$this->spArgs('u');
         $m  = $this->spArgs('m');
-        $user   = spClass('m_user')->find(array('user_id', $u));
+        $user   = spClass('m_user')->find(array('user_id'=>$u));
+        if(!$user){
+            $this->error('用户不存在', spUrl('main', 'login'));
+        }
         if($user['email_chk']){
             $this->success('邮箱已经验证通过了', spUrl('main','index'));
         }
