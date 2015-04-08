@@ -15,6 +15,48 @@ class m_user extends spModel
         )
     );
 
+    var $addrules = array(
+        'is_exist'          => array('m_user', 'user_exist_check'),
+        'email_is_exist'    => array('m_user', 'email_exist_check')
+    );
+
+    var $verifier = array(
+        "rules" => array( // 规则
+            'username'  => array(
+                'notnull'       => true,
+                'minlength'     => 5,
+                'maxlength'     => 20,
+                'is_exist'      => true,
+            ),
+            'email'     => array(
+                'notnull'           => true,
+                'email'             => true,
+                'maxlength'         => 50,
+                'email_is_exist'    => true,
+            ),
+            'sspass'    => array(
+                'notnull'       => true,
+            )
+        ),
+        "messages" => array( // 提示信息
+            'username'  => array(
+                'notnull'   => "用户名不能为空",
+                'minlength' => "用户名不能少于5个字符",
+                'maxlength' => "用户名不能大于20个字符",
+                'is_exist'  => '用户名已存在'
+            ),
+            'email'     => array(
+                'notnull'   => '邮箱不能为空',
+                'email'     => '邮箱格式不正确',
+                'maxlength' => '邮箱长度不能超过50',
+                'email_is_exist'    => '邮箱已存在'
+            ),
+            'sspass'    => array(
+                'notnull'   => 'Shadowsocks密码不能为空'
+            )
+        )
+    );
+
     public function chk_money($user_id=0, $consumption){
         if(!$consumption)return false;
         $user_info  = $this->find(array('user_id'=>$user_id));
@@ -33,5 +75,23 @@ class m_user extends spModel
             return false;
         }
         return $this->updateField($conditions, 'money_amount', $new_money_amount);
+    }
+
+    public function user_exist_check($username){
+        $user = $this->find(array('username'=>$username));
+        if( !$user ){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function email_exist_check($email){
+        $user = $this->find(array('email'=>$email));
+        if( !$user ){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

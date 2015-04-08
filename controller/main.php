@@ -64,32 +64,18 @@ class main extends spController
         }
         $post_data          = $this->spArgs(null, false, 'post');
         unset($post_data['/main-regSave_html']);
-        $tmp                = array(
-            'username'      => '用户名不能为空',
-            'password'      => '密码不能为空',
-            'repassword'    => '密码不能为空',
-            'email'         => 'email不能为空',
-            'sspass'       => 'Shadowsocks密码不能为空'
-        );
-        //检查是否为空
-        foreach ($post_data as $k => $v) {
-            if(empty($v)){
-                $this->error($tmp[$k], spUrl('main','reg'));
-            }
-        }
         
         $user_lib           = spClass('m_user');
-        $user_info          = $user_lib->find(array('username'=>$post_data['username']));
-        if($user_info){
-            $this->error('用户名已存在',spUrl('main','reg'));
+        $verifier           = $user_lib->spVerifier($post_data);
+        if( $verifier ){
+            $msg    = array_pop($verifier);
+            $this->error($msg[0], spUrl('main', 'reg'));
         }
-        $user_info          = $user_lib->find(array('email'=>$post_data['email']));
-        if($user_info){
-            $this->error('邮箱已存在',spUrl('main','reg'));
-        }
+        
         if($post_data['password']!==$post_data['repassword']){
             $this->error('两次密码不一样',spUrl('main','reg'));
         }
+
         $port_lib           = spClass('m_port_pool');
         $ssport             = $port_lib->get_ss_port();
         if(!$ssport){
