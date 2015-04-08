@@ -71,6 +71,8 @@ function createStr($len = 5) {
  * 发送邮件
  */
 function sendmail($to_user, $subject, $content, $user_name){
+    global $spConfig;
+    if($spConfig['mode']=='debug')return false;
     if(!$to_user||!$subject||!$content||!$user_name)return false;
     global $spConfig;
     import('class.phpmailer.php');

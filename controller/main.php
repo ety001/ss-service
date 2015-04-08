@@ -116,9 +116,7 @@ class main extends spController
 <p><a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a></p>
 <p>希望您使用愉快~</p>
 EOF;
-            if($spConfig['mode']!='debug'){
-                sendmail($post_data['email'], $subject, $email_content, $post_data['username']);
-            }
+            sendmail($post_data['email'], $subject, $email_content, $post_data['username']);
 
             //邀请用户信息保存
             if($post_data['invite_uid']){
