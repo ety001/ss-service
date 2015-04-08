@@ -156,6 +156,7 @@ function is_mobile_request(){
  * 验证订单是否支付
  */
 function auth_order_has_paid($order_id){
+    global $spConfig;
     $msg        = array();
     if(!$order_id){
         $msg['status']  = -1;
@@ -185,9 +186,9 @@ function auth_order_has_paid($order_id){
     $req->setTid($order_id);
     $resp = $c->execute($req, $sessionKey);
 
-    if($resp['code']){
+    if($resp->code){
         $msg['status']  = -3;
-        $msg['msg']     = $resp['sub_msg'];
+        $msg['msg']     = '错误码：'.$resp->code;
         return $msg;
     }
 
@@ -207,6 +208,18 @@ function auth_order_has_paid($order_id){
                 return $msg;
                 break;
             default:
+                if($spConfig['mode']=='debug'){
+                    //线下测试使用已关闭状态订单来完成充值测试
+                    $msg['status']  = 1;
+                    $msg['msg']     = '付款成功';
+                    $msg['data']    = $resp['trade']['orders']['order'];
+                    return $msg;
+                } else {
+                    $msg['status']  = -5;
+                    $msg['msg']     = $order_status;
+                    $msg['data']    = $resp['trade'];
+                    return $msg;
+                }
                 break;
         }
     }

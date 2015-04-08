@@ -48,26 +48,11 @@ class user extends spController
             $this->error('订单已存在', spUrl('user', 'order'));
         } else {
             $info   = auth_order_has_paid($order_id);
-            switch ($info['status']) {
-                case -1:
-                    $this->error($info['msg'], spUrl('user','order'));
-                    break;
-                case -2:
-                    $this->error($info['msg'], spUrl('user','order'));
-                    break;
-                case -3:
-                    $this->error($info['msg'], spUrl('user','order'));
-                    break;
-                case -4:
-                    $this->error($info['msg'], spUrl('user','order'));
-                    break;
-                case 1:
-                    $amount     = caculate_money($info['data']);
-                    send_order($order_id);
-                    break;
-                default:
-                    # code...
-                    break;
+            if($info['status']==1){
+                $amount     = caculate_money($info['data']);
+                send_order($order_id);
+            } else {
+                $this->error($info['msg'], spUrl('user','order'));
             }
 
             $info           = array(
