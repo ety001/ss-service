@@ -70,6 +70,10 @@ class main extends spController
         if($user_info){
             $this->error('用户名已存在',spUrl('main','reg'));
         }
+        $user_info          = $user_lib->find(array('email'=>$post_data['email']));
+        if($user_info){
+            $this->error('邮箱已存在',spUrl('main','reg'));
+        }
         if($post_data['password']!==$post_data['repassword']){
             $this->error('两次密码不一样',spUrl('main','reg'));
         }
