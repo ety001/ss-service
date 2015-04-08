@@ -39,6 +39,16 @@ class main extends spController
         tpl_display($this, 'main/reg.html', $css_js);
     }
 
+    public function advise(){
+        $page               = array(
+            'title'     => '建议',
+            'tag'       => 'advise'
+        );
+        $css_js['head_css'] = array('res/css/global.css');
+        $this->page         = $page;
+        tpl_display($this, 'main/advise.html', $css_js);
+    }
+
     public function login(){
         if(checkHasLogin()){
             $this->jump(spUrl('user','index'));
