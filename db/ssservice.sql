@@ -3148,6 +3148,20 @@ CREATE TABLE IF NOT EXISTS `ss_user` (
 ALTER TABLE  `ss_user` ADD  `email_chk` INT NOT NULL DEFAULT  '0' AFTER  `email`;
 
 
+-- 2015-04-08 13:47
+--
+-- 表的结构 `ss_invite`
+--
+
+CREATE TABLE IF NOT EXISTS `ss_invite` (
+  `invite_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `invited_user_id` int(11) NOT NULL,
+  `invite_time` int(11) NOT NULL,
+  `has_pay` int(11) NOT NULL DEFAULT '0' COMMENT '是否支付优惠，0未支付，1支付',
+  PRIMARY KEY (`invite_id`),
+  UNIQUE KEY `invited_user_id` (`invited_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='邀请表' AUTO_INCREMENT=1 ;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
