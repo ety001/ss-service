@@ -3143,12 +3143,12 @@ CREATE TABLE IF NOT EXISTS `ss_user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
--- 转存表中的数据 `ss_user`
---
 
-INSERT INTO `ss_user` (`user_id`, `username`, `password`, `user_type`, `email`, `create_time`, `ssport`, `sspass`, `money_amount`, `service_id`) VALUES
-(1, 'ety001', '6b60a823816ab816770168ac4cc4959d', 0, 'ety001@domyself.me', 1428370321, 10000, 'woqimm', 99, 1);
+-- 2015-04-08 13:22
+ALTER TABLE  `ss_user` ADD  `email_chk` INT NOT NULL DEFAULT  '0' AFTER  `email`;
+
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

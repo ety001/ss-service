@@ -97,10 +97,10 @@ class main extends spController
             $subject        = '欢迎注册 GFW.FUCKSPAM.IN';
             $e              = spUrl('main', 'auth', array('u'=>$userid, 'm'=>md5($post_data['email'])));
             $email_content  = <<<EOF
-{$post_data['username']}, 您好
-感谢您注册私人定制GFW，下面是邮箱验证链接，
-<a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a>
-希望您使用愉快~
+<p>{$post_data['username']}, 您好</p>
+<p>感谢您注册 SS -- GFW，下面是邮箱验证链接，</p>
+<p><a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a></p>
+<p>希望您使用愉快~</p>
 EOF;
             sendmail($post_data['email'], $subject, $email_content, $post_data['username']);
             $this->success('注册成功', spUrl('main', 'login'));
@@ -128,6 +128,7 @@ EOF;
         $m  = $this->spArgs('m');
         $user   = spClass('m_user')->find(array('user_id', $u));
         if(md5($user['email']) == $m){
+            spClass('m_user')->updateField(array('user_id', $u), 'email_chk', 1);
             $this->success('验证通过', spUrl('main', 'login'));
         } else {
             $this->error('验证失败', spUrl('main', 'index'));
