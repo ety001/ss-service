@@ -127,6 +127,9 @@ EOF;
         $u  = (int)$this->spArgs('u');
         $m  = $this->spArgs('m');
         $user   = spClass('m_user')->find(array('user_id', $u));
+        if($user['email_chk']){
+            $this->success('邮箱已经验证通过了', spUrl('main','index'));
+        }
         if(md5($user['email']) == $m){
             spClass('m_user')->updateField(array('user_id', $u), 'email_chk', 1);
             $this->success('验证通过', spUrl('main', 'login'));
