@@ -18,6 +18,18 @@ class main extends spController
         if(checkHasLogin()){
             $this->jump(spUrl('user','index'));
         }
+        //获取邀请用户的信息
+        $i                  = (int)$this->spArgs('i');
+        if(!$i){
+            $i  = $_COOKIE['invite_user_id'];
+        }
+        if($i){
+            $this->invite_user  = spClass('m_user')->find(array('user_id'=>$i));
+            if(!$_COOKIE['invite_user_id']){
+                setcookie ( 'invite_user_id', $i, time()+3600 );
+            }
+        }
+
         $page               = array(
             'title'     => 'SS',
             'tag'       => 'reg'

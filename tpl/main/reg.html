@@ -11,6 +11,12 @@
 <div class="row marketing">
   <div class="col-lg-8 col-md-offset-2">
     <form action="<?php echo spUrl('main','regSave');?>" method="post">
+      <?php if($invite_user){?>
+      <div class="form-group">
+        <p><code><?php echo $invite_user['username'];?></code> 正在邀请您加入~~</p>
+        <input type="hidden" name="invite_uid" value="<?php echo $invite_user['user_id'];?>">
+      </div>
+      <?php }?>
       <div class="form-group">
         <label for="username">用户名</label>
         <input type="text" class="form-control" name="username" id="username">
