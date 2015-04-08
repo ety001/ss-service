@@ -8,6 +8,10 @@
       <label for="appsecret">AppSecret</label>
       <input type="text" class="form-control" id="appsecret" name="appsecret" value="<?php echo $app['appsecret'];?>" >
     </div>
+    <div class="form-group">
+      <label for="sessionkey">Sessionkey</label>
+      <input type="text" class="form-control" id="sessionkey" value="<?php echo $app['sessionkey'];?>" >
+    </div>
     <button type="submit" class="btn btn-default">验证</button>
   </form>
   <?php if($user_info){?>
