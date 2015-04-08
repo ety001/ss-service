@@ -19,6 +19,9 @@ class admin extends spController
         $key_lib                = spClass('m_key');
 
         $user_info              = $user_lib->findAll();
+        import('cli.php');
+        $cli_lib                = spClass('cli');
+        $this->progress_num     = $cli_lib->list_all();
 
         foreach ($user_info as $k => $user) {
             $tt                 = $buyservice_lib->get_current_service($user['user_id']);
