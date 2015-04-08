@@ -280,8 +280,10 @@ function caculate_money($orders){
     $order_list = $spConfig['order_list'];
     
     foreach ($orders as $k => $v) {
-        if( array_key_exists($v['num_iid'], $spConfig['order_list']) ){
-            $amount[]   = $spConfig['order_list'][$v['num_iid']] * $v['num'];
+        $tmp_good_id    = (string)$v['num_iid'];
+        $tmp_price      = $order_list[ $tmp_good_id ];
+        if( $tmp_price ){
+            $amount[]   = $tmp_price * $v['num'];
         }
     }
     $sum    = array_sum($amount);
