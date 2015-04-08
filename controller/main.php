@@ -58,6 +58,7 @@ class main extends spController
     }
 
     public function regSave(){
+        global $spConfig;
         if(checkHasLogin()){
             $this->jump(spUrl('user','index'));
         }
@@ -106,6 +107,7 @@ class main extends spController
 
         if($userid = $user_lib->create($data)){
             $port_lib->change_status($ssport, 1);
+
             $subject        = '欢迎注册 GFW.FUCKSPAM.IN';
             $e              = spUrl('main', 'auth', array('u'=>$userid, 'm'=>md5($post_data['email'])));
             $email_content  = <<<EOF
@@ -114,7 +116,15 @@ class main extends spController
 <p><a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a></p>
 <p>希望您使用愉快~</p>
 EOF;
-            sendmail($post_data['email'], $subject, $email_content, $post_data['username']);
+            if($spConfig['mode']!='debug'){
+                sendmail($post_data['email'], $subject, $email_content, $post_data['username']);
+            }
+
+            //邀请用户信息保存
+            if($post_data['invite_uid']){
+                spClass('m_invite')->save_invite($post_data['invite_uid'], $userid);
+            }
+            
             $this->success('注册成功', spUrl('main', 'login'));
         } else {
             $this->error('注册失败，请联系管理员', spUrl('main','reg'));
