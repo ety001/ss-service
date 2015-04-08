@@ -60,7 +60,7 @@
         <td>
           <?php 
           if($service_status){
-            echo '<code>正在运行</code> <a href="'.spUrl('user','changeservicestatus', array('s'=>1)).'">停止</a>';
+            echo '<code>正在运行</code>';
           } else {
             echo '<code>已停止</code> <a href="'.spUrl('user','changeservicestatus', array('s'=>0)).'">启动</a>';
           }
