@@ -271,5 +271,6 @@ function caculate_money($orders){
             $amount[]   = $spConfig['order_list'][$v['num_iid']] * $v['num'];
         }
     }
-    return array_sum($amount);
+    $sum    = array_sum($amount);
+    return $sum?$sum:0;
 }
