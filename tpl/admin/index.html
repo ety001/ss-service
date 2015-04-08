@@ -30,7 +30,7 @@
     <?php foreach ($user_info as $k => $v) {?>
     <tr>
       <td><?php echo $v['username'];?></td>
-      <td><?php echo $v['email'];?></td>
+      <td><?php echo $v['email_chk']?'<code>'.$v['email'].'</code>':$v['email'];?></td>
       <td><?php echo $v['service_info']['service_info']['service_name']?$v['service_info']['service_info']['service_name']:'--';?></td>
       <td><?php echo $v['start_time']?date('Y-m-d H:i:s', $v['start_time']):'--';?></td>
       <td><?php echo $v['end_time']?date('Y-m-d H:i:s', $v['end_time']):'--';?></td>
