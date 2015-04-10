@@ -151,7 +151,7 @@ EOF;
             $this->success('邮箱已经验证通过了', spUrl('main','index'));
         }
         if(md5($user['email']) == $m){
-            $user_lib->updateField(array('user_id', $u), 'email_chk', 1);
+            $user_lib->updateField(array('user_id'=>$u), 'email_chk', 1);
             $this->success('验证通过', spUrl('main', 'login'));
         } else {
             $this->error('验证失败', spUrl('main', 'index'));
