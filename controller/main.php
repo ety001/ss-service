@@ -140,9 +140,10 @@ EOF;
     }
 
     public function auth(){
-        $u  = (int)$this->spArgs('u');
-        $m  = $this->spArgs('m');
-        $user   = spClass('m_user')->find(array('user_id'=>$u));
+        $u          = (int)$this->spArgs('u');
+        $m          = $this->spArgs('m');
+        $user_lib   = spClass('m_user');
+        $user   = $user_lib->find(array('user_id'=>$u));
         if(!$user){
             $this->error('用户不存在', spUrl('main', 'login'));
         }
@@ -150,7 +151,7 @@ EOF;
             $this->success('邮箱已经验证通过了', spUrl('main','index'));
         }
         if(md5($user['email']) == $m){
-            spClass('m_user')->updateField(array('user_id', $u), 'email_chk', 1);
+            $user_lib->updateField(array('user_id', $u), 'email_chk', 1);
             $this->success('验证通过', spUrl('main', 'login'));
         } else {
             $this->error('验证失败', spUrl('main', 'index'));
