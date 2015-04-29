@@ -27,7 +27,7 @@
         <td><?php echo $v['service_name'];?></td>
         <td><?php echo $v['service_val'];?> 天</td>
         <td><?php echo $v['service_money'];?> S币</td>
-        <td><a href="<?php echo spUrl('user','buysave', array('service_id'=>$v['service_id']));?>" onclick="if(!confirm('是否要购买 <?php echo $v['service_name'];?>？注意：购买后无法退款。'))return false;">购买</a></td>
+        <td><a href="<?php echo spUrl('user','buysave', array('service_id'=>$v['service_id']));?>" onclick="if(!confirm('是否要购买 <?php echo $v['service_name'];?>？注意：购买后无法退款。'))return false;">购买并开通服务</a></td>
       </tr>
       <?php }?>
     </table>
