@@ -7,7 +7,7 @@
       <tr class="success">
         <td>
           余额：
-          <code><?php echo $user_info['money_amount']?$user_info['money_amount']:'0';?></code> S币
+          <code><?php echo $user_info['money_amount']?$user_info['money_amount']:'0';?></code> RMB
           <a href="<?php echo spUrl('user','order');?>">充值</a>
         </td>
         <td>
@@ -26,7 +26,7 @@
       <tr class="warning">
         <td><?php echo $v['service_name'];?></td>
         <td><?php echo $v['service_val'];?> 天</td>
-        <td><?php echo $v['service_money'];?> S币</td>
+        <td><?php echo $v['service_money'];?> RMB</td>
         <td><a href="<?php echo spUrl('user','buysave', array('service_id'=>$v['service_id']));?>" onclick="if(!confirm('是否要购买 <?php echo $v['service_name'];?>？注意：购买后无法退款。'))return false;">购买并开通服务</a></td>
       </tr>
       <?php }?>
