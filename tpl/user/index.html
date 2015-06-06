@@ -21,7 +21,7 @@
       <tr class="success">
         <td>用户余额</td>
         <td>
-          <code><?php echo $user_info['money_amount']?$user_info['money_amount']:'0';?></code> S币
+          <code><?php echo $user_info['money_amount']?$user_info['money_amount']:'0';?></code> RMB
           <a href="<?php echo spUrl('user','order');?>">充值</a>
         </td>
       </tr>
@@ -31,7 +31,7 @@
           <?php if($user_info['service_id']) {
             echo '已开通服务 <code>'.$user_info['service_info']['service_name'].'</code>';
           } else {
-            echo '还未开通服务';
+            echo '还未开通服务， <a href="'.spUrl('user','buyservice').'">点击这里</a> 去购买服务';
           }?>
         </td>
       </tr>
