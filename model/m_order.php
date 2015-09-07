@@ -13,4 +13,11 @@ class m_order extends spModel
             'enabled' => true     // 启用关联
         )
     );
+
+    public function chk_order_id($order_id=0){
+        $conditions     = array(
+            'order_code'   => $order_id
+        );
+        return $this->find($conditions);
+    }
 }

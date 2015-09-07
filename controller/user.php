@@ -68,7 +68,7 @@ class user extends spController
             //邀请判断并完成佣金支付
             spClass('m_invite')->pay($user_id, $amount);
 
-            $this->success('充值'.$amount.' S币成功', spUrl('user', 'order'));
+            $this->success('充值'.$amount.' RMB成功', spUrl('user', 'order'));
         }
     }
 

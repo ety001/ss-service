@@ -41,8 +41,7 @@ $spConfig = array(
     'include_path' => array(
         APP_PATH.'/inc',
         APP_PATH.'/inc/phpmailer',
-        APP_PATH.'/inc/top',
-        APP_PATH.'/inc/top/request'
+        APP_PATH.'/inc/alipay'
     ),
     'siteconfig' => array(
     ),
@@ -50,10 +49,13 @@ $spConfig = array(
         'pass' => getenv('SS_EMAIL_PASS')
     ),
     'service_limit' => getenv('SS_LIMIT')?getenv('SS_LIMIT'):8,
-    'order_list'    => array(
-        '44601411246'=>10,//10元
-        '44601479234'=>20,//20元
-        '44667681336'=>50,//50元
-        '44624314489'=>100,//100元
+    'alipay' => array(
+        'cacert' => APP_PATH.'/inc/alipay/' . 'cacert.pem',
+        'sign_type' => strtoupper('MD5'),
+        'input_charset' => strtolower('utf-8'),
+        'transport' => 'http',
+        'seller_email' => getenv('SELLER_EMAIL'),
+        'partner' => getenv('PARTNER'),//合作身份者id，以2088开头的16位纯数字
+        'key' => getenv('PARTNER_KEY'),//安全检验码，以数字和字母组成的32位字符
     )
 );
