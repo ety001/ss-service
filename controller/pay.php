@@ -26,7 +26,8 @@ class pay extends spController
             'order_time' => time(),
             'order_status' => 0
         );
-        if( $order_id = $order_lib->create($order_data) ){
+        //if( $order_id = $order_lib->create($order_data) ){
+        if(1)
             echo $this->topay($money, $order_code);
         } else {
             $this->error('订单保存失败', spUrl('user','order'));
@@ -61,10 +62,13 @@ class pay extends spController
             "receive_mobile"    => '10010',
             "_input_charset"    => trim(strtolower($alipay_config['input_charset']))
         );
-
-        //建立请求
-        $alipaySubmit = new AlipaySubmit($alipay_config);
-        $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
-        return $html_text;
+        try {
+            //建立请求
+            $alipaySubmit = spClass('AlipaySubmit', array($alipay_config));
+            $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
+            return $html_text;
+        } catch (Exception $e) {
+            var_dump($e);
+        }
     }
 }
