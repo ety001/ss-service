@@ -11,7 +11,7 @@ class pay extends spController
         if(!$money){
             $this->error('参数错误', spUrl('main','index'));
         }
-        if($money!=10||$money!=20||$money!=50||$money!=100){
+        if($money!=10&&$money!=20&&$money!=50&&$money!=100){
             $this->error('参数错误', spUrl('main','index'));
         }
         $order_lib = spClass('m_order');
