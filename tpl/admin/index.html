@@ -55,9 +55,9 @@
       </td>
       <td>
         <?php if($v['user_type']!=1){?>
-        <a class="btn btn-success btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">VIP</a>
+        <a class="btn btn-success btn-xs" href="<?php echo spUrl('admin','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">VIP</a>
         <?php } else {?>
-        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('user','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">取消VIP</a>
+        <a class="btn btn-danger btn-xs" href="<?php echo spUrl('admin','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">取消VIP</a>
         <?php }?>
       </td>
     </tr>
