@@ -27,7 +27,7 @@ class pay extends spController
             'order_status' => 0
         );
         //if( $order_id = $order_lib->create($order_data) ){
-        if(1)
+        if(1){
             echo $this->topay($money, $order_code);
         } else {
             $this->error('订单保存失败', spUrl('user','order'));
