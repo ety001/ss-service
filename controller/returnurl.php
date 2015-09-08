@@ -3,6 +3,7 @@ import(APP_PATH.'/inc/alipay/func.php');//载入alipay函数库
 class returnurl extends spController
 {
     public function index(){
+        logResult('returnurl data: '.var_export($_POST,true));
         global $spConfig;
         $alipay_config = $spConfig['alipay'];
         $alipayNotify = spClass('AlipayNotify', array($alipay_config));

@@ -3,6 +3,7 @@ import(APP_PATH.'/inc/alipay/func.php');//载入alipay函数库
 class notifyurl extends spController
 {
     public function index(){
+        logResult('notifyurl data: '.var_export($_POST,true));
         global $spConfig;
         $alipay_config = $spConfig['alipay'];
         $alipayNotify = spClass('AlipayNotify', array($alipay_config));
@@ -20,6 +21,10 @@ class notifyurl extends spController
             $result = $order_lib->find( array('order_code'=>$out_trade_no) );
             if(!$result){
                 echo 'fail';
+                return;
+            }
+            if($result['order_status']=='TRADE_FINISHED'){
+                echo 'success';
                 return;
             }
 
@@ -68,7 +73,7 @@ class notifyurl extends spController
                 );
                 if($r1){
                     $user_lib = spClass('m_user');
-                    $r2 = $user_lib->change_money($_SESSION['user']['user_id'], $money);
+                    $r2 = $user_lib->change_money($result['user_id'], $money);
                     if(!$r2){
                         $order_lib->update(
                             array('order_code'=>$out_trade_no),
