@@ -76,6 +76,7 @@ class notifyurl extends spController
                         );
                         echo 'fail';
                     } else {
+                        logResult ('充值成功:订单号'.$out_trade_no);
                         echo 'success';
                     }
                 } else {
