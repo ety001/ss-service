@@ -29,8 +29,7 @@ class pay extends spController
             'order_code' => $order_code,
             'user_id' => $_SESSION['user']['user_id'],
             'order_money' => $money,
-            'order_time' => time(),
-            'order_status' => 0
+            'order_time' => time()
         );
         if( $order_id = $order_lib->create($order_data) ){
             $this->html = $this->topay($money, $order_code);
@@ -65,7 +64,7 @@ class pay extends spController
             "logistics_fee" => "0.00",//运费
             "logistics_type"    => 'EXPRESS',//EXPRESS（快递）、POST（平邮）、EMS（EMS）
             "logistics_payment" => 'SELLER_PAY',//SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-            "body"  => '',
+            "body"  => $_SESSION['user']['username'].' 正在 gfw.fuckspam.in 上充值 ' . $money . ' RMB',
             "show_url"  => '',
             "receive_name"  => '',
             "receive_address"   => '',
