@@ -72,7 +72,7 @@ class notifyurl extends spController
                     if(!$r2){
                         $order_lib->update(
                             array('order_code'=>$out_trade_no),
-                            array('order_status'=>$now_status);
+                            array('order_status'=>$now_status)
                         );
                         echo 'fail';
                     } else {
