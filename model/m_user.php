@@ -74,6 +74,7 @@ class m_user extends spModel
         if($new_money_amount<0){
             return false;
         }
+        logResult('change_money:'.var_export($conditions,true).', $chg:'.$chg);
         return $this->updateField($conditions, 'money_amount', $new_money_amount);
     }
 
