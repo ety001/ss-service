@@ -66,11 +66,11 @@ class pay extends spController
             "logistics_payment" => 'SELLER_PAY',//SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
             "body"  => $_SESSION['user']['username'].' 正在 gfw.fuckspam.in 上充值 ' . $money . ' RMB',
             "show_url"  => '',
-            "receive_name"  => '',
-            "receive_address"   => '',
-            "receive_zip"   => '',
-            "receive_phone" => '',
-            "receive_mobile"    => '',
+            "receive_name"  => $_SESSION['user']['username'],
+            "receive_address"   => '北京市',
+            "receive_zip"   => '100000',
+            "receive_phone" => '000000',
+            "receive_mobile"    => '000000',
             "_input_charset"    => trim(strtolower($alipay_config['input_charset']))
         );
         //建立请求
