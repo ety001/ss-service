@@ -28,7 +28,9 @@ class user extends spController
     }
 
     public function order(){
+        $user_lib           = spClass('m_user');
         $order_lib          = spClass('m_order');
+        $this->user_info    = $user_lib->find(array('user_id'=>$_SESSION['user']['user_id']));
         $this->order_info   = $order_lib->findAll(array('user_id'=>$_SESSION['user']['user_id']));
         $page               = array(
             'title'     => '充值',

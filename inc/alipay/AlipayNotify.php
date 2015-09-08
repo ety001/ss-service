@@ -31,17 +31,6 @@ class AlipayNotify {
             $responseTxt = 'true';
             if (! empty($_POST["notify_id"])) {$responseTxt = $this->getResponse($_POST["notify_id"]);}
             
-            //写日志记录
-            //if ($isSign) {
-            //  $isSignStr = 'true';
-            //}
-            //else {
-            //  $isSignStr = 'false';
-            //}
-            //$log_text = "responseTxt=".$responseTxt."\n notify_url_log:isSign=".$isSignStr.",";
-            //$log_text = $log_text.createLinkString($_POST);
-            //logResult($log_text);
-            
             //验证
             //$responsetTxt的结果不是true，与服务器设置问题、合作身份者ID、notify_id一分钟失效有关
             //isSign的结果不是true，与安全校验码、请求时的参数格式（如：带自定义参数等）、编码格式有关
@@ -67,17 +56,6 @@ class AlipayNotify {
             //获取支付宝远程服务器ATN结果（验证是否是支付宝发来的消息）
             $responseTxt = 'true';
             if (! empty($_GET["notify_id"])) {$responseTxt = $this->getResponse($_GET["notify_id"]);}
-            
-            //写日志记录
-            //if ($isSign) {
-            //  $isSignStr = 'true';
-            //}
-            //else {
-            //  $isSignStr = 'false';
-            //}
-            //$log_text = "responseTxt=".$responseTxt."\n return_url_log:isSign=".$isSignStr.",";
-            //$log_text = $log_text.createLinkString($_GET);
-            //logResult($log_text);
             
             //验证
             //$responsetTxt的结果不是true，与服务器设置问题、合作身份者ID、notify_id一分钟失效有关

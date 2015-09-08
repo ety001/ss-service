@@ -169,3 +169,15 @@ function generate_order_code(){
     $now = date('YmdHis',time());
     return $now . rand(10000, 99999);
 }
+
+function simplest_xml_to_array($xmlstring) {
+    return json_decode(json_encode((array) simplexml_load_string($xmlstring)), true);
+}
+
+function logResult($word='') {
+    $fp = fopen(APP_PATH."/tmp/log.txt","a");
+    flock($fp, LOCK_EX) ;
+    fwrite($fp,"执行日期：".strftime("%Y%m%d%H%M%S",time())."\n".$word."\n\n");
+    flock($fp, LOCK_UN);
+    fclose($fp);
+}
