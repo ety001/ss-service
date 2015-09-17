@@ -17,7 +17,8 @@ class cli
     }
 
     public function get_pid($ssport){
-        $command    = 'cat /tmp/shadowsocks_' . $ssport . '.pid';
+        //$command    = 'cat /tmp/shadowsocks_' . $ssport . '.pid';
+        $command    = "ps aux | grep 'shadowsocks_{$ssport}' | grep -v grep | awk -F ' ' '{print $2}'";
         exec($command, $output, $status);
         return $output[0];
     }
