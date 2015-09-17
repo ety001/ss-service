@@ -111,7 +111,7 @@ class user extends spController
         //获取服务详情
         $service_info       = $service_lib->find(array('service_id'=>$service_id));        
         $chk                = $user_lib->chk_money($user_id, $service_info['service_money']);
-        if(!$chk){
+        if(!$chk&&$user_info['user_type']!=1){
             $this->error('余额不足，请先充值', spUrl('user','order'));
             return;
         }
