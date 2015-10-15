@@ -7,6 +7,7 @@ class pay extends spController
             $this->error('您还未登录，请先登录！',spUrl('main','login'));
             return;
         }
+$this->error('暂停支付功能',spUrl('main','index'));return;
         $money = (int)$this->spArgs('money');
         if(!$money){
             $this->error('参数错误', spUrl('main','index'));
