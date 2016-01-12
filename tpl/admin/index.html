@@ -22,8 +22,8 @@
       <td><?php echo $v['username'];?></td>
       <td><?php echo $v['email_chk']?'<code>'.$v['email'].'</code>':$v['email'];?></td>
       <td><?php echo $v['service_info']['service_info']['service_name']?$v['service_info']['service_info']['service_name']:'--';?></td>
-      <td><?php echo $v['start_time']?date('Y-m-d H:i', $v['start_time']):'--';?></td>
-      <td><?php echo $v['end_time']?date('Y-m-d H:i', $v['end_time']):'--';?></td>
+      <td><?php echo $v['start_time']?date('Y:m:d', $v['start_time']):'--';?></td>
+      <td><?php echo $v['end_time']?date('Y:m:d', $v['end_time']):'--';?></td>
       <td>
         <?php switch ($v['user_type']) {
           case 0:
@@ -65,7 +65,7 @@
         <?php echo $v['order_money']?$v['order_money']:0;?>
       </td>
       <td>
-        <?php echo $v['order_status'];}?>
+        <?php echo $v['order_status'];?>
       </td>
     </tr>
     <?php }?>
