@@ -1,7 +1,7 @@
 <?php
 class cli
 {
-    public $__command_tpl = "/usr/local/bin/ss-server -p %s -k %s -m aes-256-cfb --user www -t 600 --pid-file /tmp/shadowsocks_%s.pid";
+    public $__command_tpl = "/usr/local/bin/ss-server -p %s -k %s -m aes-256-cfb --user www -t 600 --pid-file /tmp/shadowsocks_%s.pid &";
     //public $__command_tpl = "/usr/bin/ssserver -p %s -k %s -d %s --user www --log-file /tmp/shadowsocks.log --pid-file /tmp/shadowsocks_%s.pid";
     public function run($ssport, $sspass){
         $command    = sprintf($this->__command_tpl, $ssport, $sspass, $ssport);
