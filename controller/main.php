@@ -201,7 +201,32 @@ EOF;
     public function weidian()
     {
         logResult(var_export($_POST, true));
-        echo 'ok';
+
+        $content = $_POST['content'];
+        $content = json_decode($content, true);
+
+        $message = $content['message'];
+        $order_code = $message['order_id'];
+
+        $order_lib = spClass('m_order');
+        $order = $order_lib->find(array('order_code'=>$order_code));
+        if($order) {
+            switch($message['status']) {
+                case 'pay':
+                    $status = send_weidian_order($order_code);
+                    if($status['status']['status_reason']=='success'){
+                        $order_lib->updateField(array('order_code'=>$order_code), 'order_status', 'ship');
+                        return;
+                    }
+                    break;
+                case 'accept':
+                case 'finish':
+                    $user_lib = spClass('m_user');
+                    $order_lib->updateField(array('order_code'=>$order_code), 'order_status', 'finish');
+                    $user_lib->change_money( $order['user_id'], $order['order_money'] );
+                    break;
+            }
+        }
         return;
     }
 }
