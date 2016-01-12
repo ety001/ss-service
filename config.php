@@ -57,5 +57,9 @@ $spConfig = array(
         'seller_email' => getenv('SELLER_EMAIL'),
         'partner' => getenv('PARTNER'),//合作身份者id，以2088开头的16位纯数字
         'key' => getenv('PARTNER_KEY'),//安全检验码，以数字和字母组成的32位字符
+    ),
+    'weidian' => array(
+        'key' => getenv('WEIDIAN_KEY'),
+        'secret' => getenv('WEIDIAN_SECRET')
     )
 );

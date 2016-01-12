@@ -178,4 +178,150 @@ class user extends spController
         tpl_display($this, 'user/invite.html', $css_js);
     }
 
+    public function addorder() {
+        $user_id    = $_SESSION['user']['user_id'];
+
+        $order_id = $this->spArgs('order_id');
+        $order_info = get_weidian_order_info($order_id);
+
+        $order_lib = spClass('m_order');
+        if($order_lib->find(array('order_code'=>$order_id))) {
+            $this->error('该订单已存在，请直接在列表中操作', spUrl('user','order'));
+            return;
+        }
+        if($order_info['status']['status_code']==0){
+            $result = $order_info['result'];
+            $order_data = array(
+                'order_code'    => $order_id,
+                'user_id'       => $user_id,
+                'order_money'   => (int)$result['total'],
+                'order_time'    => strtotime($result['add_time']),
+                'order_status'  => $result['status']
+            );
+            //如果已付款，则发货
+            if($order_data['order_status']=='pay'){
+                $status = send_weidian_order($order_id);
+                if($status['status']['status_reason']=='success'){
+                    $order_data['order_status'] = 'ship';
+                }
+            }
+            $order_lib->create($order_data);
+            if($order_data['order_status']=='ship'){
+                $this->success('添加订单成功，请前往微店确认收货', spUrl('user','order'));
+            } else {
+                $this->success('添加订单成功，您还未支付，请前往微店进行支付', spUrl('user','order'));
+            }
+            return;
+        } else {
+            $this->error($order_info['status']['status_reason'], spUrl('user','order'));
+            return;
+        }
+    }
+
+    public function haspaid() {
+        $user_id    = $_SESSION['user']['user_id'];
+
+        $order_code = $this->spArgs('order_code');
+
+        $order_lib = spClass('m_order');
+        $order = $order_lib->find(array('order_code'=>$order_code));
+        if(!$order) {
+            $this->error('订单不存在', spUrl('user','order'));
+            return;
+        }
+
+        if($order['order_status']!='unpay') {
+            $this->error('你的订单状态不是未支付，无法继续操作', spUrl('user','order'));
+            return;
+        }
+
+        $order_info = get_weidian_order_info($order_code);
+        if($order_info['status']['status_code']==0){
+            $result = $order_info['result'];
+            switch ($result['status']) {
+                case 'unpay':
+                    $this->error('你的订单未支付，无法继续操作', spUrl('user','order'));
+                    return;
+                    break;
+                case 'pay':
+                    $status = send_weidian_order($order_code);
+                    if($status['status']['status_reason']=='success'){
+                        $order_lib->updateField(array('order_code'=>$order_code), 'order_status', 'ship');
+                        $this->success('处理成功，请到 微店 确认收货', spUrl('user', 'order'));
+                        return;
+                    } else {
+                        $this->error('发货处理失败，'.$status['status']['status_reason'], spUrl('user', 'order'));
+                        return;
+                    }
+                    break;
+                default:
+                    $order_lib->updateField(array('order_code'=>$order['order_code']), 'order_status', $result['status']);
+                    $this->error('你的订单状态为'.$result['status'].'，无法继续操作', spUrl('user','order'));
+                    return;
+                    break;
+            }
+        } else {
+            $this->error($order_info['status']['status_reason'], spUrl('user','order'));
+            return;
+        }
+    }
+
+    public function hasreceived() {
+        $user_id    = $_SESSION['user']['user_id'];
+
+        $order_code = $this->spArgs('order_code');
+
+        $order_lib = spClass('m_order');
+        $order = $order_lib->find(array('order_code'=>$order_code));
+        if(!$order) {
+            $this->error('订单不存在', spUrl('user','order'));
+            return;
+        }
+
+        if($order['order_status']!='ship') {
+            $this->error('你的订单状态不是已发货状态，无法继续操作', spUrl('user','order'));
+            return;
+        }
+
+        $order_info = get_weidian_order_info($order_code);
+        if($order_info['status']['status_code']==0){
+            $result = $order_info['result'];
+            switch ($result['status']) {
+                case 'unpay':
+                    $this->error('你的订单未支付，无法继续操作', spUrl('user','order'));
+                    return;
+                    break;
+                case 'pay':
+                    $status = send_weidian_order($order_code);
+                    if($status['status']['status_reason']=='success'){
+                        $order_lib->updateField(array('order_code'=>$order_code), 'order_status', 'ship');
+                        $this->success('处理成功，请到 微店 确认收货', spUrl('user', 'order'));
+                        return;
+                    } else {
+                        $this->error('发货处理失败，'.$status['status']['status_reason'], spUrl('user', 'order'));
+                        return;
+                    }
+                    break;
+                case 'ship':
+                    $this->error('你的订单未确认收货', spUrl('user','order'));
+                    return;
+                    break;
+                case 'accept':
+                case 'finish':
+                    $user_lib = spClass('m_user');
+                    $order_lib->updateField(array('order_code'=>$order_code), 'order_status', 'finish');
+                    $user_lib->change_money( $order['user_id'], $order['order_money'] );
+                    $this->success('完成充值', spUrl('user','order'));
+                    break;
+                default:
+                    $order_lib->updateField(array('order_code'=>$order['order_code']), 'order_status', $result['status']);
+                    $this->error('你的订单状态为'.$result['status'].'，无法继续操作', spUrl('user','order'));
+                    return;
+                    break;
+            }
+        } else {
+            $this->error($order_info['status']['status_reason'], spUrl('user','order'));
+            return;
+        }
+    }
 }

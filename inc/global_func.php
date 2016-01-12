@@ -181,3 +181,60 @@ function logResult($word='') {
     flock($fp, LOCK_UN);
     fclose($fp);
 }
+
+function get_weidian_access_token() {
+    global $spConfig;
+    $key = $spConfig['weidian']['key'];
+    $secret = $spConfig['weidian']['secret'];
+    $access_token = spAccess('r',  'weidian_access_token');
+    if($access_token) {
+        return $access_token;
+    } else {
+        $result = file_get_contents('https://api.vdian.com/token?grant_type=client_credential&appkey='.$key.'&secret='.$secret);
+        $r = json_decode($result, true);
+        $access_token = $r['result']['access_token'];
+        spAccess('w',  'weidian_access_token', $access_token, $r['result']['expire_in']);
+        return $access_token;
+    }
+}
+
+function get_weidian_order_info($order_id) {
+    $access_token = get_weidian_access_token();
+
+    $param = array("order_id"=>$order_id);
+    $param = json_encode($param);
+    $public = array(
+        "method"=>"vdian.order.get",
+        "access_token"=>$access_token,
+        "version"=>"1.0",
+        "format"=>"json"
+    );
+    $public = json_encode($public);
+    $url = 'http://api.vdian.com/api?param='.$param.'&public='.$public;
+
+    $output = file_get_contents($url);
+    
+    return json_decode($output, true);
+}
+
+function send_weidian_order($order_id) {
+    $access_token = get_weidian_access_token();
+
+    $param = array(
+        "order_id"=>$order_id,
+        "express_type"=>"999"
+    );
+    $param = json_encode($param);
+    $public = array(
+        "method"=>"vdian.order.deliver",
+        "access_token"=>$access_token,
+        "version"=>"1.0",
+        "format"=>"json"
+    );
+    $public = json_encode($public);
+    $url = 'http://api.vdian.com/api?param='.$param.'&public='.$public;
+
+    $output = json_decode( file_get_contents($url), true);
+    
+    return $output;
+}

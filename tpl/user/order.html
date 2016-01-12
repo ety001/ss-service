@@ -2,16 +2,16 @@
   <div class="col-lg-12">
     <div class="row">
       <div class="col-lg-3">
-        <a href="<?php echo spUrl('pay','index', array('money'=>10));?>" class="pay-btn btn btn-lg btn-primary">充 10 RMB</a>
+        <a href="http://weidian.com/item.html?itemID=1699892062" target="_blank" class="pay-btn btn btn-lg btn-primary">充 10 RMB</a>
       </div>
       <div class="col-lg-3">
-        <a href="<?php echo spUrl('pay','index', array('money'=>20));?>" class="pay-btn btn btn-lg btn-success">充 20 RMB</a>
+        <a href="http://weidian.com/item.html?itemID=1699892062" target="_blank" class="pay-btn btn btn-lg btn-success">充 20 RMB</a>
       </div>
       <div class="col-lg-3">
-        <a href="<?php echo spUrl('pay','index', array('money'=>50));?>" class="pay-btn btn btn-lg btn-info">充 50 RMB</a>
+        <a href="http://weidian.com/item.html?itemID=1699892062" target="_blank" class="pay-btn btn btn-lg btn-info">充 50 RMB</a>
       </div>
       <div class="col-lg-3">
-        <a href="<?php echo spUrl('pay','index', array('money'=>100));?>" class="pay-btn btn btn-lg btn-danger">充 100 RMB</a>
+        <a href="http://weidian.com/item.html?itemID=1699892062" target="_blank" class="pay-btn btn btn-lg btn-danger">充 100 RMB</a>
       </div>
     </div>
   </div>
@@ -20,8 +20,21 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="alert alert-danger" role="alert">
-      充值渠道为支付宝方式，付款后，请在你的支付宝管理界面确认收货，才能完成充值，谢谢支持！
+      支付流程（请严格按照下面的步骤进行）：<br>
+      1、点击上方按钮，跳转到 微店，选择对应的产品进行支付，支付完成进入下一步，<br>
+      2、在下面的输入框中输入上一步在 微店 的订单号，点击提交，<br>
+      3、点击
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <form class="form" action="<?php echo spUrl('user', 'addorder');?>" method="post">
+      <label for="order_id">请输入微店的订单号</label>
+      <input id="order_id" type="text" class="form-control" name="order_id" value="" /><br>
+      <input type="submit" class="form-control" value="提交"><br>
+    </form>
   </div>
 </div>
 
@@ -42,6 +55,7 @@
         <th>订单号</th>
         <th>金额</th>
         <th>状态</th>
+        <th>操作</th>
       </thead>
       <?php foreach ($order_info as $k => $v) {?>
       <tr>
@@ -49,22 +63,42 @@
         <td><?php echo $v['order_money'];?></td>
         <td>
           <?php switch ($v['order_status']) {
-            case 'WAIT_BUYER_PAY':
-              echo '等待买家付款';
+            case 'unpay':
+              echo '未付款';
               break;
-            case 'WAIT_SELLER_SEND_GOODS':
-              echo '等待卖家发货';
+            case 'pay':
+              echo '待发货';
               break;
-            case 'WAIT_BUYER_CONFIRM_GOODS':
-              echo '等待买家确认收货';
+            case 'unship_refunding':
+              echo '未发货，申请退款';
               break;
-            case 'TRADE_FINISHED':
-              echo '充值成功';
+            case 'ship':
+              echo '已发货';
               break;
-            case 'TRADE_CLOSED':
-              echo '订单已关闭';
+            case 'shiped_refunding':
+              echo '已发货，申请退款';
+              break;
+            case 'accept':
+              echo '已确认收货';
+              break;
+            case 'accept_refunding':
+              echo '已确认收货，申请退款';
+              break;
+            case 'finish':
+              echo '订单完成';
+              break;
+            case 'close':
+              echo '订单关闭';
               break;
           }?>
+        </td>
+        <td>
+          <?php if($v['order_status']=='unpay'){?>
+            <a class="btn btn-info" href="<?php echo spUrl('user', 'haspaid', array('order_code'=>$v['order_code']));?>">已经支付</a>
+          <?php }?>
+          <?php if($v['order_status']=='ship'){?>
+            <a class="btn btn-info" href="<?php echo spUrl('user', 'hasreceived', array('order_code'=>$v['order_code']));?>">已经确认收货</a>
+          <?php }?>
         </td>
       </tr>
       <?php }?>

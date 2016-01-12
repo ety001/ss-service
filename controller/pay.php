@@ -7,7 +7,7 @@ class pay extends spController
             $this->error('您还未登录，请先登录！',spUrl('main','login'));
             return;
         }
-$this->error('暂停支付功能',spUrl('main','index'));return;
+//$this->error('暂停支付功能',spUrl('main','index'));return;
         $money = (int)$this->spArgs('money');
         if(!$money){
             $this->error('参数错误', spUrl('main','index'));
@@ -32,8 +32,20 @@ $this->error('暂停支付功能',spUrl('main','index'));return;
             'order_money' => $money,
             'order_time' => time()
         );
-        if( $order_id = $order_lib->create($order_data) ){
+        /*if( $order_id = $order_lib->create($order_data) ){
             $this->html = $this->topay($money, $order_code);
+            $page                   = array(
+                'title'     => '支付',
+                'tag'       => 'pay'
+            );
+            $css_js['head_css'] = array('res/css/global.css');
+            $this->page         = $page;
+            tpl_display($this, 'pay/topay.html', $css_js);
+        } else {
+            $this->error('订单保存失败', spUrl('user','order'));
+        }*/
+        if( $order_id = $order_lib->create($order_data) ){
+            $this->order_code = $order_code;
             $page                   = array(
                 'title'     => '支付',
                 'tag'       => 'pay'
