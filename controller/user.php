@@ -202,6 +202,7 @@ class user extends spController
             if($order_data['order_status']=='pay'){
                 $status = send_weidian_order($order_id);
                 if($status['status']['status_reason']=='success'){
+                    logResult($order_id.' has shipped');
                     $order_data['order_status'] = 'ship';
                 }
             }
