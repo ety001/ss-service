@@ -1,20 +1,4 @@
 <div class="row marketing">
-  <form class="form-inline" action="<?php echo spUrl('admin','savekey');?>" method="get">
-    <div class="form-group">
-      <label for="appkey">AppKey</label>
-      <input type="text" class="form-control" id="appkey" name="appkey" value="<?php echo $app['appkey'];?>" >
-    </div>
-    <div class="form-group">
-      <label for="appsecret">AppSecret</label>
-      <input type="text" class="form-control" id="appsecret" name="appsecret" value="<?php echo $app['appsecret'];?>" >
-    </div>
-    <div class="form-group">
-      <label for="sessionkey">Sessionkey</label>
-      <input type="text" class="form-control" id="sessionkey" value="<?php echo $app['sessionkey'];?>" >
-    </div>
-    <button type="submit" class="btn btn-default">验证</button>
-  </form>
-  <hr>
   <table class="table table-bordered table-striped">
     <tr>
       <td>当前运行的程序数：<?php echo $progress_num?$progress_num:0;?></td>
@@ -38,8 +22,8 @@
       <td><?php echo $v['username'];?></td>
       <td><?php echo $v['email_chk']?'<code>'.$v['email'].'</code>':$v['email'];?></td>
       <td><?php echo $v['service_info']['service_info']['service_name']?$v['service_info']['service_info']['service_name']:'--';?></td>
-      <td><?php echo $v['start_time']?date('Y-m-d H:i:s', $v['start_time']):'--';?></td>
-      <td><?php echo $v['end_time']?date('Y-m-d H:i:s', $v['end_time']):'--';?></td>
+      <td><?php echo $v['start_time']?date('Y-m-d H:i', $v['start_time']):'--';?></td>
+      <td><?php echo $v['end_time']?date('Y-m-d H:i', $v['end_time']):'--';?></td>
       <td>
         <?php switch ($v['user_type']) {
           case 0:
@@ -81,14 +65,7 @@
         <?php echo $v['order_money']?$v['order_money']:0;?>
       </td>
       <td>
-        <?php switch ($v['order_status']) {
-          case 0:
-            echo '审核中';
-            break;
-          case 1:
-            echo '充值成功';
-            break;
-        }?>
+        <?php echo $v['order_status'];}?>
       </td>
     </tr>
     <?php }?>
