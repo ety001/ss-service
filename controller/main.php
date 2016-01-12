@@ -197,4 +197,11 @@ EOF;
             $this->error('验证失败', spUrl('main','index'));
         }
     }
+
+    public function weidian()
+    {
+        logResult(var_export($_POST, true));
+        echo 'ok';
+        return;
+    }
 }
