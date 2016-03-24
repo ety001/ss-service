@@ -74,6 +74,11 @@ class main extends spController
         }
         $post_data          = $this->spArgs(null, false, 'post');
         unset($post_data['/main-regSave_html']);
+        if($post_data['regin']!=$spConfig['regin']) {
+            $this->error('请输入正确的邀请码', 'reg');
+            return;
+        }
+        unset($post_data['regin']);
         
         $user_lib           = spClass('m_user');
         $verifier           = $user_lib->spVerifier($post_data);
@@ -228,5 +233,16 @@ EOF;
             }
         }
         return;
+    }
+
+    public function regin()
+    {
+        $page               = array(
+            'title'     => 'SS',
+            'tag'       => 'reg'
+        );
+        $css_js['head_css'] = array('res/css/global.css');
+        $this->page         = $page;
+        tpl_display($this, 'main/regin.html', $css_js);
     }
 }

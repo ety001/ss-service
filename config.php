@@ -61,5 +61,6 @@ $spConfig = array(
     'weidian' => array(
         'key' => getenv('WEIDIAN_KEY'),
         'secret' => getenv('WEIDIAN_SECRET')
-    )
+    ),
+    'regin' => getenv('REGIN')
 );
