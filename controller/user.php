@@ -330,4 +330,33 @@ class user extends spController
             return;
         }
     }
+
+    public function resend()
+    {
+        $user_id    = $_SESSION['user']['user_id'];
+        if(!$user_id){
+            $this->error('用户信息有误', spUrl('main','index'));
+        }
+
+        $user_lib   = spClass('m_user');
+        $user_info = $user_lib->find(array('user_id'=>$user_id));
+        if($user_info['email_chk']==1){
+            $this->error('邮箱已验证过', spUrl('user','index'));
+        }
+
+        $email = $this->spArgs('email');
+        $user_info['email'] = $email;
+
+        $subject        = '欢迎注册 GFW.FUCKSPAM.IN';
+        $e              = spUrl('main', 'auth', array('u'=>$userid, 'm'=>md5($user_info['email'])));
+        $email_content  = <<<EOF
+<p>{$user_info['username']}, 您好</p>
+<p>感谢您注册 SS -- GFW，下面是邮箱验证链接，</p>
+<p><a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a></p>
+<p>希望您使用愉快~</p>
+EOF;
+        $r = sendmail($user_info['email'], $subject, $email_content, $user_info['username']);
+        $user_lib->updateField(array('user_id'=>$user_id), 'email', $email);
+        $this->success('发送成功，请注意查收', spUrl('user','index'));
+    }
 }

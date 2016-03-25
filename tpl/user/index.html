@@ -90,4 +90,12 @@
       </tr>
     </table>
   </div>
+  <?php if($user_info['email_chk']==0){?>
+  <div class="col-lg-12">
+    <form method="post" action="<?php echo spUrl('user', 'resend');?>">
+      <p><input class="form-control" type="email" name="email" value="<?php echo $user_info['email'];?>"></p>
+      <p><input class="btn btn-primary" type="submit" value="重发验证邮件"></p>
+    </form>
+  </div>
+  <?php }?>
 </div>
