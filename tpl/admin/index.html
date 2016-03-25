@@ -16,6 +16,7 @@
       <th>user_type</th>
       <th>端口</th>
       <th>操作</th>
+      <th>time</th>
     </thead>
     <?php foreach ($user_info as $k => $v) {?>
     <tr>
@@ -44,6 +45,7 @@
         <a class="btn btn-danger btn-xs" href="<?php echo spUrl('admin','vip',array('user_id'=>$v['user_id'],'vip'=>$v['user_type']));?>">取消VIP</a>
         <?php }?>
       </td>
+      <td><?php echo date('Y:m:d,H:i:s',$v['create_time']);?></td>
     </tr>
     <?php }?>
   </table>
