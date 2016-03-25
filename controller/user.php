@@ -348,7 +348,7 @@ class user extends spController
         $user_info['email'] = $email;
 
         $subject        = '欢迎注册 GFW.FUCKSPAM.IN';
-        $e              = spUrl('main', 'auth', array('u'=>$userid, 'm'=>md5($user_info['email'])));
+        $e              = spUrl('main', 'auth', array('u'=>$user_id, 'm'=>md5($user_info['email'])));
         $email_content  = <<<EOF
 <p>{$user_info['username']}, 您好</p>
 <p>感谢您注册 SS -- GFW，下面是邮箱验证链接，</p>
