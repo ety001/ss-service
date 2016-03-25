@@ -74,10 +74,14 @@ class main extends spController
         }
         $post_data          = $this->spArgs(null, false, 'post');
         unset($post_data['/main-regSave_html']);
-        if($post_data['regin']!=$spConfig['regin']) {
-            $this->error('请输入正确的邀请码', spUrl('main','reg'));
+
+        $regin_lib = spClass('m_regin');
+        $regin = $regin_lib->find( array('regin_key'=>$post_data['regin']) );
+        if(empty($regin) || $regin['status']==1){
+            $this->error('邀请码不正确或者已经使用', spUrl('main','reg'));
             return;
         }
+        $regin_data = $post_data['regin'];
         unset($post_data['regin']);
         
         $user_lib           = spClass('m_user');
@@ -107,6 +111,7 @@ class main extends spController
         );
 
         if($userid = $user_lib->create($data)){
+            $regin_lib->updateField(array('regin_key'=>$regin_data), 'status', 1);
             $port_lib->change_status($ssport, 1);
 
             $subject        = '欢迎注册 GFW.FUCKSPAM.IN';

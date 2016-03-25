@@ -108,6 +108,11 @@ class user extends spController
         }
 
         $user_info          = $user_lib->spLinker()->find(array('user_id'=>$user_id));
+
+        if($user_info['email_chk']==0){
+            $this->error('邮箱还未验证 :( ', spUrl('user','index'));
+        }
+
         //获取服务详情
         $service_info       = $service_lib->find(array('service_id'=>$service_id));        
         $chk                = $user_lib->chk_money($user_id, $service_info['service_money']);

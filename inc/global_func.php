@@ -78,14 +78,14 @@ function sendmail($to_user, $subject, $content, $user_name){
     import('class.phpmailer.php');
     $mail = spClass('PHPMailer');
     $mail->IsSMTP(); // 使用SMTP方式发送
-    $mail->Helo = 'Hello smtp.qq.com Server';
-    $mail->Host = "smtp.qq.com"; // 您的企业邮局域名
+    //$mail->Helo = 'Hello smtp.qq.com Server';
+    $mail->Host = "smtp.mailgun.org"; // 您的企业邮局域名
     $mail->SMTPAuth = true; // 启用SMTP验证功能
-    $mail->Username = "gfw@fuckspam.in"; // 邮局用户名(请填写完整的email地址)
+    $mail->Username = "postmaster@gfw.fuckspam.in"; // 邮局用户名(请填写完整的email地址)
     $mail->Password = $spConfig['mail']['pass']; // 邮局密码
     $mail->Port=25;
-    $mail->From = "gfw@fuckspam.in"; //邮件发送者email地址
-    $mail->FromName = "gfw@fuckspam.in";
+    $mail->From = "postmaster@gfw.fuckspam.in"; //邮件发送者email地址
+    $mail->FromName = "postmaster@gfw.fuckspam.in";
     $mail->CharSet  = "utf-8";
 
     $mail->AddAddress($to_user, $user_name);//收件人地址，可以替换成任何想要接收邮件的email信箱,格式是AddAddress("收件人email","收件人姓名")
