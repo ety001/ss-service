@@ -83,7 +83,8 @@ function sendmail($to_user, $subject, $content, $user_name){
     $mail->SMTPAuth = true; // 启用SMTP验证功能
     $mail->Username = "postmaster@gfw.fuckspam.in"; // 邮局用户名(请填写完整的email地址)
     $mail->Password = $spConfig['mail']['pass']; // 邮局密码
-    $mail->Port=25;
+    $mail->Port=587;
+    $mail->SMTPSecure = 'tls';
     $mail->From = "postmaster@gfw.fuckspam.in"; //邮件发送者email地址
     $mail->FromName = "postmaster@gfw.fuckspam.in";
     $mail->CharSet  = "utf-8";
