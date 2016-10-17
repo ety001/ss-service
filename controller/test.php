@@ -94,7 +94,8 @@ class test extends spController
     }
 
     public function email(){
-      /*$subject        = '欢迎注册 GFW.FUCKSPAM.IN';
+        /*
+      $subject        = '欢迎注册 GFW.FUCKSPAM.IN';
       $e              = spUrl('main', 'auth', array('u'=>1, 'm'=>md5('ety001@domyself.me')));
       $email_content  = <<<EOF
 ETY001, 您好
@@ -102,8 +103,8 @@ ETY001, 您好
 <a href="http://gfw.fuckspam.in{$e}">http://gfw.fuckspam.in{$e}</a>
 希望您使用愉快~
 EOF;
-            sendmail('ety001@domyself.me', $subject, $email_content, 'ety001');
-        //sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');*/
+            echo sendmail('ety001@domyself.me', $subject, $email_content, 'ety001');*/
+        //sendmail('ety001@domyself.me', 'test', 'test123', 'ety001');
     }
 
     public function testCliCheckStatus(){

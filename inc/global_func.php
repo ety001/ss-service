@@ -71,6 +71,11 @@ function createStr($len = 5) {
  * 发送邮件
  */
 function sendmail($to_user, $subject, $content, $user_name){
+    try {
+        return send_by_sendcloud($to_user, $subject, $content, $user_name);
+    } catch (Exception $e) {
+        var_dump($e);die();   
+    }
     global $spConfig;
     if($spConfig['mode']=='debug')return false;
     if(!$to_user||!$subject||!$content||!$user_name)return false;
@@ -102,6 +107,38 @@ function sendmail($to_user, $subject, $content, $user_name){
     } else {
         return true;
     }
+}
+
+function send_by_sendcloud($to_user, $subject, $content, $user_name)
+{
+    global $spConfig;
+    $url = 'http://api.sendcloud.net/apiv2/mail/send';
+    $API_USER = 'gfwfuckspamin';
+    $API_KEY = $spConfig['mail']['apikey'];
+
+    $param = array(
+        'apiUser' => $API_USER, # 使用api_user和api_key进行验证
+        'apiKey' => $API_KEY,
+        'from' => 'postmaster@ml.gfw.fuckspam.in', # 发信人，用正确邮件地址替代
+        'fromName' => 'postmaster@ml.gfw.fuckspam.in',
+        'to' => $to_user,# 收件人地址, 用正确邮件地址替代, 多个地址用';'分隔  
+        'subject' => $subject,
+        'html' => $content,
+        'respEmailId' => 'true'
+    );
+
+    $data = http_build_query($param);
+
+    $options = array(
+        'http' => array(
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => $data
+    ));
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, FILE_TEXT, $context);
+
+    return $result;
 }
 
 /**

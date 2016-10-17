@@ -46,7 +46,8 @@ $spConfig = array(
     'siteconfig' => array(
     ),
     'mail' => array(
-        'pass' => getenv('SS_EMAIL_PASS')
+        'pass' => getenv('SS_EMAIL_PASS'),
+        'apikey' => getenv('SS_APIKEY')
     ),
     'service_limit' => getenv('SS_LIMIT')?getenv('SS_LIMIT'):8,
     'alipay' => array(
